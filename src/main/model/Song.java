@@ -12,10 +12,10 @@ public class Song {
     private String date;
     private boolean isFavourite;
 
-    //REQUIRES: date formatted as (dd/mm/yyyy)
+    //REQUIRES: date formatted as (mm/yyyy)
     //EFFECTS: constructs a song with isFavorite set to false.
-    public Song(String songName, String artistName, int views, int likes, int dislikes, String instrument,
-                String date) {
+    public Song(String songName, String artistName, String instrument,
+                String date, int views, int likes, int dislikes) {
         this.songName = songName;
         this.artistName = artistName;
         this.views = views;
