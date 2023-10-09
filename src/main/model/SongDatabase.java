@@ -4,18 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SongDatabase {
-    private List<Song> songs = new ArrayList<>();
+    private List<Song> songs;
 
     //EFFECTS: constructs a new song database
     public SongDatabase() {
+        songs = new ArrayList<>();
     }
 
     //MODIFIES: this
-    //EFFECTS: adds a song to the list
+    //EFFECTS: adds a song to the list of songs
     public void addSong(Song song) {
         songs.add(song);
     }
 
+    //MODIFIES: this
+    //EFFECTS: removes a song from the list of songs
     public void deleteSong(String song) {
         Song result = searchSong(song);
         if (!(result == null)) {
@@ -24,6 +27,8 @@ public class SongDatabase {
 
     }
 
+    //EFFECTS: Locates a song based on the name of the song and returns that song if found
+    // else return null
     public Song searchSong(String song) {
         for (Song next : songs) {
             if (next.getSongName().equals(song)) {
@@ -33,16 +38,49 @@ public class SongDatabase {
         return null;
     }
 
-    //REQUIRES: num <= the size of the list
-    //EFFECTS: returns the first num elements in the list
-    public List<Song> getNumSongs(int num) {
-//        if (songs.isEmpty()) {
-        return null;
-//        } else {
-//            List<Song> songList = new ArrayList<>();
-//            for (int i = 0; i < num; i++) {
-//                songList.add(songs.get(i));
-//            }
-//        }
+    //EFFECTS: return the list of songs
+    public List<Song> getSongs() {
+        if (songs.isEmpty()) {
+            return null;
+        } else {
+            return songs;
+        }
+    }
+
+    public int calcAvgViews() {
+        int sum = 0;
+        if (songs.isEmpty()) {
+            return 0;
+        } else {
+            for (Song next : songs) {
+                sum = sum + next.getViews();
+            }
+            return sum / songs.size();
+        }
+    }
+
+    public int calcAvgLikes() {
+        int sum = 0;
+        if (songs.isEmpty()) {
+            return 0;
+        } else {
+            for (Song next : songs) {
+                sum = sum + next.getLikes();
+            }
+            return sum / songs.size();
+        }
+    }
+
+    public int calcAvgDislikes() {
+        int sum = 0;
+        if (songs.isEmpty()) {
+            return 0;
+        } else {
+            for (Song next : songs) {
+                sum = sum + next.getDislikes();
+            }
+            return sum / songs.size();
+        }
     }
 }
+

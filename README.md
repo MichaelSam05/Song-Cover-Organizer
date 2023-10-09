@@ -22,6 +22,7 @@ for musicians of all kinds.
 -  I want to be able to **search** for a song based on song title/featured instrument/original songwriter.
 - I want to be able to **favorite** songs in the song database
 - I want to be able to **generate** a list of all/some the songs in the song database based on my choosing such as top "x" performing songs or favourited songs.
+- I want to be able to **calculate** the average about of views, likes and dislikes my song cover has.
 - I want to be able to **generate** a line graph that shows my lifetime career performance based on view count 
 
 

@@ -10,7 +10,8 @@ import static java.lang.Integer.*;
 public class SongOrganizerApp {
 
     private Scanner input;
-    SongDatabase songDatabase = new SongDatabase();
+    private static final int QUIT = 6;
+    private SongDatabase songDatabase = new SongDatabase();
 
     public SongOrganizerApp() {
         runOrganizer();
@@ -28,8 +29,9 @@ public class SongOrganizerApp {
             displayMainMenu();
             choice = input.nextInt();
 
-            if (choice == 4) {
+            if (choice == QUIT) {
                 keepGoing = false;
+                System.out.println("Terminating...");
             } else {
                 handleInput(choice);
             }
@@ -45,8 +47,10 @@ public class SongOrganizerApp {
         System.out.println("-----------------------------------------");
         System.out.println("1 -> Add Song");
         System.out.println("2 -> Delete Song");
-        System.out.println("3 -> Generate A List Of Songs");
-        System.out.println("4 -> Exit");
+        System.out.println("3 -> Generate A List Of All Songs");
+        System.out.println("4 -> Search For A Song");
+        System.out.println("5 -> Calculate Averages");
+        System.out.println(QUIT + " -> Exit");
         System.out.println("Please Enter A Digit Of The Available Options");
     }
 
@@ -59,7 +63,11 @@ public class SongOrganizerApp {
             doDeleteSong();
         } else if (choice == 3) {
             doGenerateList();
-        } else {
+        } else if (choice == 4) {
+            doSearchSong();
+        } else if (choice == 5) {
+            doGenerateAvg();
+        }   else {
             System.out.println("Invalid Choice");
         }
     }
@@ -129,8 +137,40 @@ public class SongOrganizerApp {
         }
     }
 
-    private void doGenerateList () {
-        //stub
+    private void doSearchSong () {
+        String songName;
+        System.out.println("Enter song name");
+        songName = input.nextLine();
+        Song mySong = songDatabase.searchSong(songName);
+
+        if (mySong == null) {
+            System.out.println("Song not found");
+        } else {
+            System.out.println("Song found");
+            System.out.println("Song Name:" + mySong.getSongName());
+            System.out.println("Artist Name:" + mySong.getArtistName());
+            System.out.println("Featured Instrument:" + mySong.getInstrument());
+            System.out.println("Views:" + mySong.getViews());
+            System.out.println("Likes:" + mySong.getLikes());
+            System.out.println("Dislikes:" + mySong.getDislikes());
+            System.out.println("Upload Date:" + mySong.getDate());
+        }
+
+    }
+
+    private void doGenerateAvg() {
+        System.out.println("Calculating Averages");
+        int avgViews = songDatabase.calcAvgViews();
+        int avgLikes = songDatabase.calcAvgLikes();
+        int avgDislikes = songDatabase.calcAvgDislikes();
+
+        System.out.println("Average Views:" + avgViews);
+        System.out.println("Average Likes:" + avgLikes);
+        System.out.println("Average Dislikes:" + avgDislikes);
+    }
+
+    private void doGenerateList() {
+        songDatabase.getSongs();
     }
 
     //EFFECTS: returns true if a valid date, that is, obeys the required format
