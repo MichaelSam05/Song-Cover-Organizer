@@ -75,7 +75,6 @@ public class SongOrganizerApp {
 
     //MODIFIES: this
     //EFFECTS: add new song to the song database
-    @SuppressWarnings("checkstyle:MethodLength")
     private void doAddSong() {
         String songName;
         String artistName;
@@ -86,41 +85,30 @@ public class SongOrganizerApp {
         int views;
         int likes;
         int dislikes;
-
         input.nextLine();
         System.out.println("Enter Song Name");
         songName = input.nextLine();
         songName = songName.toLowerCase();
-
         System.out.println("Enter Artist Name");
         artistName = input.nextLine();
         artistName = artistName.toLowerCase();
-
         System.out.println("Enter Featured Instrument");
         instrument = input.nextLine();
         instrument = instrument.toLowerCase();
-
         while (!validDate(month, year)) {
             System.out.println("Enter Upload Month (mm)");
             month = input.nextLine();
-
             System.out.println("Enter Upload Year (yyyy)");
             year = input.nextLine();
         }
-
         date = month + "/" + year; //concatenates the strings into appropriate format
-
         System.out.println("Enter Number of Views");
         views = input.nextInt();
-
         System.out.println("Enter Number of Likes");
         likes = input.nextInt();
-
         System.out.println("Enter Number of Dislikes");
         dislikes = input.nextInt();
-
         Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes);
-
         songDatabase.addSong(song);
     }
 
