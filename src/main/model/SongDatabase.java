@@ -24,7 +24,6 @@ public class SongDatabase {
         if (!(result == null)) {
             songs.remove(result);
         }
-
     }
 
     //EFFECTS: Locates a song based on the name of the song and returns that song if found
@@ -47,6 +46,7 @@ public class SongDatabase {
         }
     }
 
+    //EFFECTS: calculates and returns the average views of each song
     public int calcAvgViews() {
         int sum = 0;
         if (songs.isEmpty()) {
@@ -59,6 +59,7 @@ public class SongDatabase {
         }
     }
 
+    //EFFECTS: calculates and returns the average likes of each song
     public int calcAvgLikes() {
         int sum = 0;
         if (songs.isEmpty()) {
@@ -71,6 +72,7 @@ public class SongDatabase {
         }
     }
 
+    //EFFECTS: calculates and returns the average dislikes of each song
     public int calcAvgDislikes() {
         int sum = 0;
         if (songs.isEmpty()) {

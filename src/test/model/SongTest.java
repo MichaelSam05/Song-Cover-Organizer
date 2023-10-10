@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SongTest {
     private Song s1;
 
+    
     @BeforeEach
     void runBefore() {
         s1 = new Song("Glimpse of US", "Joji","Guitar","08/2022",

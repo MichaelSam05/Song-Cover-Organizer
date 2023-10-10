@@ -52,9 +52,18 @@ public class SongDatabaseTest {
         assertEquals(s2,songs.get(1));
     }
 
+    //test deleteSong method when the user tries to delete a song but the list of songs is empty
+    //in this case, the list of songs remains unchanged, that is, empty
+    @Test
+    void deleteSongButEmptyTest() {
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertNull(songs);
+        songDatabaseTest.deleteSong("Never Gonna Give You Up");
+        assertNull(songs);
+    }
     //test deleteSong method by deleting 1 song
     @Test
-    void deleteSongTest() {
+    void deleteOneSongTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
@@ -63,11 +72,20 @@ public class SongDatabaseTest {
         songDatabaseTest.deleteSong(s2.getSongName());
         assertFalse(songs.contains(s2));
     }
+    //test the case where the user searches for a song but there is no songs in the list of songs
+    @Test
+    void searchSongButEmptyTest() {
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertNull(songs);
+        Song tempSong = songDatabaseTest.searchSong("Never Gonna Give You Up");
+        assertNull(tempSong);
+
+    }
     //test the searchSong method but it cannot find the song that is in the list of song
     @Test
     void searchSongNotFoundTest() {
         songDatabaseTest.addSong(s1);
-        Song tempSong = songDatabaseTest.searchSong(s2.getSongName());
+        Song tempSong = songDatabaseTest.searchSong("Never Gonna Give You Up");
         assertNull(tempSong);
     }
     //test searchSong method where it searches for a song and finds it
@@ -75,7 +93,7 @@ public class SongDatabaseTest {
     @Test
     void searchSongFoundButOneLongTest() {
         songDatabaseTest.addSong(s1);
-        Song tempSong = songDatabaseTest.searchSong(s1.getSongName());
+        Song tempSong = songDatabaseTest.searchSong("Glimpse of US");
         assertEquals(tempSong,s1);
     }
     //test the searchSong method where the song is found
@@ -85,12 +103,14 @@ public class SongDatabaseTest {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
-        Song tempSong = songDatabaseTest.searchSong(s2.getSongName());
+        Song tempSong = songDatabaseTest.searchSong("Love Nwantiti");
         assertEquals(tempSong,s2);
     }
     //test the calcAvgViews,calcAvgLikes, calcAvgDislikes methods when no songs are in the list
     @Test
     void calcAvgsWithoutSongsTest() {
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertNull(songs);
         assertEquals(0,songDatabaseTest.calcAvgViews());
         assertEquals(0,songDatabaseTest.calcAvgLikes());
         assertEquals(0,songDatabaseTest.calcAvgDislikes());
@@ -101,6 +121,8 @@ public class SongDatabaseTest {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertFalse(songs == null);
         assertEquals(8488593,songDatabaseTest.calcAvgViews());
         assertEquals(289144,songDatabaseTest.calcAvgLikes());
         assertEquals(1434,songDatabaseTest.calcAvgDislikes());

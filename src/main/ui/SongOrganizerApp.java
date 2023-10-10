@@ -7,6 +7,8 @@ import model.Song;
 import model.SongDatabase;
 
 import static java.lang.Integer.*;
+// a song organizer application where songs can be added, deleted, shown in the form of a list and averages
+//can be calculated
 
 public class SongOrganizerApp {
 
