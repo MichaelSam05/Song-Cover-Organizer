@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.List;
 import java.util.Scanner;
 
 import model.Song;
@@ -54,7 +55,7 @@ public class SongOrganizerApp {
         System.out.println("Please Enter A Digit Of The Available Options");
     }
 
-    //REQUIRES: choice>=1 && choice<=4
+    //REQUIRES: choice>=1 && choice<=6
     //EFFECTS: calls the appropriate methods based on the user's choice
     private void handleInput(int choice) {
         if (choice == 1) {
@@ -67,13 +68,14 @@ public class SongOrganizerApp {
             doSearchSong();
         } else if (choice == 5) {
             doGenerateAvg();
-        }   else {
+        } else {
             System.out.println("Invalid Choice");
         }
     }
 
     //MODIFIES: this
     //EFFECTS: add new song to the song database
+    @SuppressWarnings("checkstyle:MethodLength")
     private void doAddSong() {
         String songName;
         String artistName;
@@ -137,7 +139,9 @@ public class SongOrganizerApp {
         }
     }
 
-    private void doSearchSong () {
+    //EFFECTS: Displays the song that the user has searched for if it is found within the list of songs
+    //else informs the user that the song was not found
+    private void doSearchSong() {
         String songName;
         System.out.println("Enter song name");
         songName = input.nextLine();
@@ -158,6 +162,7 @@ public class SongOrganizerApp {
 
     }
 
+    //EFFECTS: Displays the average views, likes and dislikes for the songs within the list of songs
     private void doGenerateAvg() {
         System.out.println("Calculating Averages");
         int avgViews = songDatabase.calcAvgViews();
@@ -169,8 +174,14 @@ public class SongOrganizerApp {
         System.out.println("Average Dislikes:" + avgDislikes);
     }
 
+    //EFFECT: Displays a list of all the songs in the list of songs
     private void doGenerateList() {
-        songDatabase.getSongs();
+        List<Song> songs = songDatabase.getSongs();
+        for (Song next : songs) {
+            System.out.println(next.getSongName() + " | " + next.getArtistName() + " | "
+                    + next.getInstrument() + " | " + next.getDate() + " | " + next.getViews() + " | "
+                    + next.getLikes() + " | " + next.getDislikes() + " | " + next.getViews());
+        }
     }
 
     //EFFECTS: returns true if a valid date, that is, obeys the required format
@@ -178,7 +189,6 @@ public class SongOrganizerApp {
     private boolean validDate(String month, String year) {
         int intMonth = parseInt(month);
         int length = year.length();
-
         return (intMonth >= 1 && intMonth <= 12) && (length == 4);
     }
 }
