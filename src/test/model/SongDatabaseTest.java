@@ -42,6 +42,7 @@ public class SongDatabaseTest {
         List<Song> songs = songDatabaseTest.getSongs();
         assertEquals(s1,songs.get(0));
     }
+
     //test addSong method by adding more than one song
     @Test
     void addManySongsTest() {
@@ -61,6 +62,7 @@ public class SongDatabaseTest {
         songDatabaseTest.deleteSong("Never Gonna Give You Up");
         assertNull(songs);
     }
+
     //test deleteSong method by deleting 1 song
     @Test
     void deleteOneSongTest() {
@@ -72,6 +74,7 @@ public class SongDatabaseTest {
         songDatabaseTest.deleteSong(s2.getSongName());
         assertFalse(songs.contains(s2));
     }
+
     //test the case where the user searches for a song but there is no songs in the list of songs
     @Test
     void searchSongButEmptyTest() {
@@ -81,6 +84,7 @@ public class SongDatabaseTest {
         assertNull(tempSong);
 
     }
+
     //test the searchSong method but it cannot find the song that is in the list of song
     @Test
     void searchSongNotFoundTest() {
@@ -88,6 +92,7 @@ public class SongDatabaseTest {
         Song tempSong = songDatabaseTest.searchSong("Never Gonna Give You Up");
         assertNull(tempSong);
     }
+
     //test searchSong method where it searches for a song and finds it
     //but it is the only song in the list.
     @Test
@@ -96,6 +101,7 @@ public class SongDatabaseTest {
         Song tempSong = songDatabaseTest.searchSong("Glimpse of US");
         assertEquals(tempSong,s1);
     }
+
     //test the searchSong method where the song is found
     //the list is more than one long.
     @Test
