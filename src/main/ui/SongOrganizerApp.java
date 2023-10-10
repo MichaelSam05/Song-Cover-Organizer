@@ -75,6 +75,7 @@ public class SongOrganizerApp {
 
     //MODIFIES: this
     //EFFECTS: add new song to the song database
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void doAddSong() {
         String songName;
         String artistName;
