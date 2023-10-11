@@ -19,10 +19,12 @@ for musicians of all kinds.
 
 - I want to be able to **add** a song to my song database
 - I want to be able to **delete** a song from my song database
--  I want to be able to **search** for a song based on song title.
-- I want to be able to **favorite** songs in the song database
-- I want to be able to **generate** a list of all/some the songs in the song database based on my choosing such as top "x" performing songs or favourited songs.
-- I want to be able to **calculate** the average about of views, likes and dislikes my song cover has.
+- I want to be able to **search** for a song based on song title.
+- I want to be able to **favorite** songs in the song database.
+- I want to be able to **see** a list of all the songs in my song database.
+- I want to be able to **filter** my song covers by the instrument featured.
+- I want to be able to **calculate** the average amount of views, likes and dislikes my song covers have.
+- I want to be able to **sort** all my songs in ascending/descending order based on view, like or dislike count and be able to limit how many entries I see. 
 - I want to be able to **generate** a line graph that shows my lifetime career performance based on view count 
 
 

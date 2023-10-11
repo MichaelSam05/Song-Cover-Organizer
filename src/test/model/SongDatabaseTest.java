@@ -133,4 +133,36 @@ public class SongDatabaseTest {
         assertEquals(289144,songDatabaseTest.calcAvgLikes());
         assertEquals(1434,songDatabaseTest.calcAvgDislikes());
     }
+
+    //test the filterSong method in the case where the list of songs is empty
+    @Test
+    void filterSongEmptyTest() {
+        List<Song> filteredSongs = songDatabaseTest.filterSong("Guitar");
+        assertTrue(filteredSongs.isEmpty());
+    }
+
+    //test the filterSong method in the case where the list of songs is not empty
+    //but it could not find any song of the specified featured instrument
+    @Test
+    void filterSongOneLongTest() {
+        songDatabaseTest.addSong(s1);
+        songDatabaseTest.addSong(s2);
+        songDatabaseTest.addSong(s3);
+        List<Song> filteredSongs = songDatabaseTest.filterSong("Piano");
+        assertTrue(filteredSongs.isEmpty());
+    }
+
+    //test the filterSong method in the case where the list of songs is not empty
+    //and returns a list of the songs that have the featured instrument
+    @Test
+    void filterSongTwoLongTest() {
+        songDatabaseTest.addSong(s1);
+        songDatabaseTest.addSong(s2);
+        songDatabaseTest.addSong(s3);
+        List<Song> filteredSongs = songDatabaseTest.filterSong("Guitar");
+        assertFalse(filteredSongs.isEmpty());
+        assertEquals(2,filteredSongs.size());
+        assertTrue(filteredSongs.contains(s1));
+        assertTrue(filteredSongs.contains(s2));
+    }
 }

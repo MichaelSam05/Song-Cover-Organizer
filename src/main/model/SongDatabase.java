@@ -84,5 +84,17 @@ public class SongDatabase {
             return sum / songs.size();
         }
     }
+
+    //EFFECTS: Return a list of songs that have the featured instrument
+    //else return an empty list if no song has that featured instrument
+    public List<Song> filterSong(String instrument) {
+        List<Song> filterSong = new ArrayList<>();
+        for (Song next : songs) {
+            if (next.getInstrument().equals(instrument)) {
+                filterSong.add(next);
+            }
+        }
+        return filterSong;
+    }
 }
 

@@ -1,5 +1,6 @@
 package ui;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ import static java.lang.Integer.*;
 public class SongOrganizerApp {
 
     private Scanner input;
-    private static final int QUIT = 6;
+    private static final int QUIT = 7;
     private SongDatabase songDatabase = new SongDatabase();
 
     public SongOrganizerApp() {
@@ -30,7 +31,7 @@ public class SongOrganizerApp {
         System.out.println("Welcome\n");
         while (keepGoing) {
             displayMainMenu();
-            choice = input.nextInt();
+            choice = parseInt(input.nextLine());;
 
             if (choice == QUIT) {
                 keepGoing = false;
@@ -53,6 +54,7 @@ public class SongOrganizerApp {
         System.out.println("3 -> Generate A List Of All Songs");
         System.out.println("4 -> Search For A Song");
         System.out.println("5 -> Calculate Averages");
+        System.out.println("6 -> Filter Songs By Instrument");
         System.out.println(QUIT + " -> Exit");
         System.out.println("Please Enter A Digit Of The Available Options");
     }
@@ -70,6 +72,8 @@ public class SongOrganizerApp {
             doSearchSong();
         } else if (choice == 5) {
             doGenerateAvg();
+        } else if (choice == 6) {
+            doFilterSongs();
         } else {
             System.out.println("Invalid Choice");
         }
@@ -82,22 +86,19 @@ public class SongOrganizerApp {
         String songName;
         String artistName;
         String instrument;
-        String month = ""; //used for validDate method
-        String year = "";
+        String month = "0"; //used for validDate method
+        String year = "0";
         String date;
         int views;
         int likes;
         int dislikes;
-        input.nextLine();
+
         System.out.println("Enter Song Name");
-        songName = input.nextLine();
-        songName = songName.toLowerCase();
+        songName = input.nextLine().toLowerCase();
         System.out.println("Enter Artist Name");
-        artistName = input.nextLine();
-        artistName = artistName.toLowerCase();
+        artistName = input.nextLine().toLowerCase();
         System.out.println("Enter Featured Instrument");
-        instrument = input.nextLine();
-        instrument = instrument.toLowerCase();
+        instrument = input.nextLine().toLowerCase();
         while (!validDate(month, year)) {
             System.out.println("Enter Upload Month (mm)");
             month = input.nextLine();
@@ -106,11 +107,11 @@ public class SongOrganizerApp {
         }
         date = month + "/" + year; //concatenates the strings into appropriate format
         System.out.println("Enter Number of Views");
-        views = input.nextInt();
+        views = parseInt(input.nextLine());
         System.out.println("Enter Number of Likes");
-        likes = input.nextInt();
+        likes = parseInt(input.nextLine());
         System.out.println("Enter Number of Dislikes");
-        dislikes = input.nextInt();
+        dislikes = parseInt(input.nextLine());
         Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes);
         songDatabase.addSong(song);
     }
@@ -120,7 +121,7 @@ public class SongOrganizerApp {
     private void doDeleteSong() {
         String songName;
         System.out.println("Enter song name you want to delete");
-        songName = input.nextLine();
+        songName = input.nextLine().toLowerCase();
 
         if (songDatabase.searchSong(songName) == null) {
             System.out.println("Song does not exist");
@@ -135,20 +136,16 @@ public class SongOrganizerApp {
     private void doSearchSong() {
         String songName;
         System.out.println("Enter song name");
-        songName = input.nextLine();
+        songName = input.nextLine().toLowerCase();
+
         Song mySong = songDatabase.searchSong(songName);
 
         if (mySong == null) {
             System.out.println("Song not found");
         } else {
-            System.out.println("Song found");
-            System.out.println("Song Name:" + mySong.getSongName());
-            System.out.println("Artist Name:" + mySong.getArtistName());
-            System.out.println("Featured Instrument:" + mySong.getInstrument());
-            System.out.println("Views:" + mySong.getViews());
-            System.out.println("Likes:" + mySong.getLikes());
-            System.out.println("Dislikes:" + mySong.getDislikes());
-            System.out.println("Upload Date:" + mySong.getDate());
+            List<Song> tempList = new ArrayList<>();
+            tempList.add(mySong);
+            print(tempList);
         }
 
     }
@@ -168,6 +165,32 @@ public class SongOrganizerApp {
     //EFFECT: Displays a list of all the songs in the list of songs
     private void doGenerateList() {
         List<Song> songs = songDatabase.getSongs();
+        if (songs == null) {
+            System.out.println("There are no songs in the organizer");
+        } else {
+            print(songs);
+        }
+
+    }
+
+    //EFFECTS: displays a list of songs that satisfies the instrument the user specifies
+    void doFilterSongs() {
+        String instrument;
+        System.out.println("Enter instrument");
+        instrument = input.nextLine().toLowerCase();
+
+        List<Song> filteredSongs = songDatabase.filterSong(instrument);
+        if (filteredSongs.isEmpty()) {
+            System.out.println("Could not find " + instrument + " in the organizer");
+        } else {
+            print(filteredSongs);
+        }
+
+    }
+
+    //EFFECTS: prints a list of songs for the user
+    void print(List<Song> songs) {
+        System.out.println("Song Name | Artist Name | Instrument | Date | Views | Likes | Dislikes");
         for (Song next : songs) {
             System.out.println(next.getSongName() + " | " + next.getArtistName() + " | "
                     + next.getInstrument() + " | " + next.getDate() + " | " + next.getViews() + " | "
