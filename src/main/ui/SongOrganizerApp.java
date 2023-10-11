@@ -15,12 +15,16 @@ public class SongOrganizerApp {
 
     private Scanner input;
     private static final int QUIT = 7;
-    private SongDatabase songDatabase = new SongDatabase();
+    private SongDatabase songDatabase;
 
+    //EFFECTS: constructs a song database for the user and runs the app
     public SongOrganizerApp() {
+        songDatabase = new SongDatabase();
         runOrganizer();
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays the main menu and terminates when the user is ready to close the application
     public void runOrganizer() {
 
         boolean keepGoing = true;
@@ -59,7 +63,8 @@ public class SongOrganizerApp {
         System.out.println("Please Enter A Digit Of The Available Options");
     }
 
-    //REQUIRES: choice>=1 && choice<=6
+    //REQUIRES: choice>=1 && choice<=7
+    //MODIFIES: this
     //EFFECTS: calls the appropriate methods based on the user's choice
     private void handleInput(int choice) {
         if (choice == 1) {
@@ -86,8 +91,6 @@ public class SongOrganizerApp {
         String songName;
         String artistName;
         String instrument;
-        String month = "0"; //used for validDate method
-        String year = "0";
         String date;
         int views;
         int likes;
@@ -99,6 +102,9 @@ public class SongOrganizerApp {
         artistName = input.nextLine().toLowerCase();
         System.out.println("Enter Featured Instrument");
         instrument = input.nextLine().toLowerCase();
+
+        String month = "0"; //force entry into the loop
+        String year = "0"; //force entry into the loop
         while (!validDate(month, year)) {
             System.out.println("Enter Upload Month (mm)");
             month = input.nextLine();

@@ -46,7 +46,7 @@ public class SongDatabase {
         }
     }
 
-    //EFFECTS: calculates and returns the average views of each song
+    //EFFECTS: calculates and returns the average views of each song as an integer
     public int calcAvgViews() {
         int sum = 0;
         if (songs.isEmpty()) {
@@ -59,7 +59,7 @@ public class SongDatabase {
         }
     }
 
-    //EFFECTS: calculates and returns the average likes of each song
+    //EFFECTS: calculates and returns the average likes of each song as an integer
     public int calcAvgLikes() {
         int sum = 0;
         if (songs.isEmpty()) {
@@ -72,7 +72,7 @@ public class SongDatabase {
         }
     }
 
-    //EFFECTS: calculates and returns the average dislikes of each song
+    //EFFECTS: calculates and returns the average dislikes of each song as an integer
     public int calcAvgDislikes() {
         int sum = 0;
         if (songs.isEmpty()) {
