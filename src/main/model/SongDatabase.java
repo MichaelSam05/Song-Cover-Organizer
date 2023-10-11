@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+//Represents a song database where songs can be added to, deleted from, searched, filtered and averages
+// can be calculated
 public class SongDatabase {
     private List<Song> songs;
 

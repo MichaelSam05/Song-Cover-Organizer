@@ -1,6 +1,6 @@
 package model;
 
-// Represents a song having a song name, artist name, views, likes, dislikes, instrument, date (dd/mm/yyyy)
+// Represents a song having a song name, artist name, views, likes, dislikes, instrument, date (mm/yyyy)
 // and isFavorite
 public class Song {
     private String songName;
@@ -12,7 +12,7 @@ public class Song {
     private String date;
     private boolean isFavourite;
 
-    //REQUIRES: date formatted as (mm/yyyy)
+    //REQUIRES: a valid date (dd/yyyy), such that, mm >=01 && mm<=12 and yyyy has 4 digits
     //EFFECTS: constructs a song with isFavorite set to false.
     public Song(String songName, String artistName, String instrument,
                 String date, int views, int likes, int dislikes) {
@@ -57,5 +57,4 @@ public class Song {
     public boolean getFavourite() {
         return this.isFavourite;
     }
-
 }
