@@ -85,7 +85,6 @@ public class SongOrganizerApp {
 
     //MODIFIES: this
     //EFFECTS: add new song to the song database
-    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void doAddSong() {
         String songName;
         String artistName;
@@ -101,6 +100,19 @@ public class SongOrganizerApp {
         artistName = input.nextLine().toLowerCase();
         System.out.println("Enter Featured Instrument");
         instrument = input.nextLine().toLowerCase();
+        date = getFormattedDate();
+        System.out.println("Enter Number of Views");
+        views = parseInt(input.nextLine());
+        System.out.println("Enter Number of Likes");
+        likes = parseInt(input.nextLine());
+        System.out.println("Enter Number of Dislikes");
+        dislikes = parseInt(input.nextLine());
+        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes);
+        songDatabase.addSong(song);
+    }
+
+    //EFFECTS: prompts the user to enter a valid date and returns the formatted date
+    private String getFormattedDate() {
 
         String month = "0"; //force entry into the loop
         String year = "0"; //force entry into the loop
@@ -110,15 +122,8 @@ public class SongOrganizerApp {
             System.out.println("Enter Upload Year (yyyy)");
             year = input.nextLine();
         }
-        date = month + "/" + year; //concatenates the strings into appropriate format
-        System.out.println("Enter Number of Views");
-        views = parseInt(input.nextLine());
-        System.out.println("Enter Number of Likes");
-        likes = parseInt(input.nextLine());
-        System.out.println("Enter Number of Dislikes");
-        dislikes = parseInt(input.nextLine());
-        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes);
-        songDatabase.addSong(song);
+
+        return month + "/" + year; //concatenates and returns the string in valid format
     }
 
     //MODIFIES: this
