@@ -26,6 +26,8 @@ for musicians of all kinds.
 - I want to be able to **calculate** the average amount of views, likes and dislikes my song covers have.
 - I want to be able to **sort** all my songs in ascending/descending order based on view, like or dislike count and be able to limit how many entries I see. 
 - I want to be able to **generate** a line graph that shows my lifetime career performance based on view count 
+- I want to be able to **save** any changes I make while using the application
+- I want to be able to **load** these changes when I reopen the application
 
 
 

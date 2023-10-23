@@ -55,12 +55,14 @@ public class SongOrganizerApp {
         System.out.println("-----------------------------------------");
         System.out.println("add -> Add Song");
         System.out.println("delete -> Delete Song");
-        System.out.println("generate -> Generate A List Of All Songs");
+        System.out.println("list -> See A List Of All Songs");
         System.out.println("search -> Search For A Song");
         System.out.println("calc -> Calculate Averages");
         System.out.println("filter -> Filter Songs By Instrument");
+        System.out.println("fav -> Favourite A Song");
+        System.out.println("unfav -> Unfavourite A Song");
         System.out.println(QUIT + " -> Exit");
-        System.out.println("Please Enter A Digit Of The Available Options");
+        System.out.println("Please Enter One Of The Available Options");
     }
 
     //MODIFIES: this
@@ -70,7 +72,7 @@ public class SongOrganizerApp {
             doAddSong();
         } else if (choice.equals("delete")) {
             doDeleteSong();
-        } else if (choice.equals("generate")) {
+        } else if (choice.equals("list")) {
             doGenerateList();
         } else if (choice.equals("search")) {
             doSearchSong();
@@ -78,9 +80,14 @@ public class SongOrganizerApp {
             doGenerateAvg();
         } else if (choice.equals("filter")) {
             doFilterSongs();
+        } else if (choice.equals("fav")) {
+            doFavoriteSong();
+        } else if (choice.equals("unfav")) {
+            doUnFavoriteSong();
         } else {
             System.out.println("Invalid Choice");
         }
+
     }
 
     //MODIFIES: this
@@ -193,7 +200,7 @@ public class SongOrganizerApp {
     }
 
     //EFFECTS: displays a list of songs that satisfies the instrument the user specifies
-    void doFilterSongs() {
+    private void doFilterSongs() {
         String instrument;
         List<Song> songs = songDatabase.getSongs();
         if (songs == null) {
@@ -211,13 +218,48 @@ public class SongOrganizerApp {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: favorites the song the user specifies
+    private void doFavoriteSong() {
+        String songName;
+        doGenerateList();
+        System.out.println("Enter Song Name You Wish To Favorite");
+        songName = input.nextLine().toLowerCase();
+
+        Song mySong = songDatabase.searchSong(songName);
+
+        if (mySong == null) {
+            System.out.println("Song not found");
+        } else {
+            songDatabase.favouriteSong(mySong);
+            System.out.println("Success");
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: unfavorites the song the user specifies
+    private void doUnFavoriteSong() {
+        String songName;
+        doGenerateList();
+        System.out.println("Enter Song Name You Wish To Unfavorite");
+        songName = input.nextLine().toLowerCase();
+        Song mySong = songDatabase.searchSong(songName);
+
+        if (mySong == null) {
+            System.out.println("Song not found");
+        } else {
+            songDatabase.unFavouriteSong(mySong);
+            System.out.println("Success");
+        }
+    }
+
     //EFFECTS: prints a list of songs for the user
-    void print(List<Song> songs) {
-        System.out.println("Song Name | Artist Name | Instrument | Date | Views | Likes | Dislikes");
+    private void print(List<Song> songs) {
+        System.out.println("Song Name | Artist Name | Instrument | Date | Views | Likes | Dislikes | isFavourite?");
         for (Song next : songs) {
             System.out.println(next.getSongName() + " | " + next.getArtistName() + " | "
                     + next.getInstrument() + " | " + next.getDate() + " | " + next.getViews() + " | "
-                    + next.getLikes() + " | " + next.getDislikes() + " | " + next.getViews());
+                    + next.getLikes() + " | " + next.getDislikes() + " | " + next.getFavourite());
         }
     }
 

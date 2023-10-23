@@ -17,7 +17,7 @@ public class SongDatabaseTest {
     private SongDatabase songDatabaseTest;
 
     @BeforeEach
-    void runBefore() {
+    public void runBefore() {
         s1 = new Song("Glimpse of US", "Joji","Guitar","08/2022",
                 394998,21248,25);
         s2 = new Song("Love Nwantiti","CKay","Guitar","10/2021",
@@ -30,14 +30,14 @@ public class SongDatabaseTest {
 
     //Test the case where there are no songs in the list
     @Test
-    void emptyListTest() {
+    public void emptyListTest() {
         List<Song> songs = songDatabaseTest.getSongs();
         assertNull(songs);
     }
 
     //test addSong method by adding one song to the list of songs
     @Test
-    void addSongTest() {
+    public void addSongTest() {
         songDatabaseTest.addSong(s1);
         List<Song> songs = songDatabaseTest.getSongs();
         assertEquals(s1,songs.get(0));
@@ -45,7 +45,7 @@ public class SongDatabaseTest {
 
     //test addSong method by adding more than one song
     @Test
-    void addManySongsTest() {
+    public void addManySongsTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         List<Song> songs = songDatabaseTest.getSongs();
@@ -56,7 +56,7 @@ public class SongDatabaseTest {
     //test deleteSong method when the user tries to delete a song but the list of songs is empty
     //in this case, the list of songs remains unchanged, that is, empty
     @Test
-    void deleteSongButEmptyTest() {
+    public void deleteSongButEmptyTest() {
         List<Song> songs = songDatabaseTest.getSongs();
         assertNull(songs);
         songDatabaseTest.deleteSong("Never Gonna Give You Up");
@@ -65,7 +65,7 @@ public class SongDatabaseTest {
 
     //test deleteSong method by deleting 1 song
     @Test
-    void deleteOneSongTest() {
+    public void deleteOneSongTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
@@ -77,7 +77,7 @@ public class SongDatabaseTest {
 
     //test the case where the user searches for a song but there is no songs in the list of songs
     @Test
-    void searchSongButEmptyTest() {
+    public void searchSongButEmptyTest() {
         List<Song> songs = songDatabaseTest.getSongs();
         assertNull(songs);
         Song tempSong = songDatabaseTest.searchSong("Never Gonna Give You Up");
@@ -87,7 +87,7 @@ public class SongDatabaseTest {
 
     //test the searchSong method but it cannot find the song that is in the list of song
     @Test
-    void searchSongNotFoundTest() {
+    public void searchSongNotFoundTest() {
         songDatabaseTest.addSong(s1);
         Song tempSong = songDatabaseTest.searchSong("Never Gonna Give You Up");
         assertNull(tempSong);
@@ -96,7 +96,7 @@ public class SongDatabaseTest {
     //test searchSong method where it searches for a song and finds it
     //but it is the only song in the list.
     @Test
-    void searchSongFoundButOneLongTest() {
+    public void searchSongFoundButOneLongTest() {
         songDatabaseTest.addSong(s1);
         Song tempSong = songDatabaseTest.searchSong("Glimpse of US");
         assertEquals(tempSong,s1);
@@ -105,7 +105,7 @@ public class SongDatabaseTest {
     //test the searchSong method where the song is found
     //the list is more than one long.
     @Test
-    void searchSongFoundButMoreThanOneLongTest() {
+    public void searchSongFoundButMoreThanOneLongTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
@@ -114,7 +114,7 @@ public class SongDatabaseTest {
     }
     //test the calcAvgViews,calcAvgLikes, calcAvgDislikes methods when no songs are in the list
     @Test
-    void calcAvgsWithoutSongsTest() {
+    public void calcAvgsWithoutSongsTest() {
         List<Song> songs = songDatabaseTest.getSongs();
         assertNull(songs);
         assertEquals(0,songDatabaseTest.calcAvgViews());
@@ -123,7 +123,7 @@ public class SongDatabaseTest {
     }
     //test the calcAvgViews,calcAvgLikes, calcAvgDislikes methods when songs are in the list
     @Test
-    void calcAgsWithSongsTest() {
+    public void calcAgsWithSongsTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
@@ -136,7 +136,7 @@ public class SongDatabaseTest {
 
     //test the filterSong method in the case where the list of songs is empty
     @Test
-    void filterSongEmptyTest() {
+    public void filterSongEmptyTest() {
         List<Song> filteredSongs = songDatabaseTest.filterSong("Guitar");
         assertTrue(filteredSongs.isEmpty());
     }
@@ -144,7 +144,7 @@ public class SongDatabaseTest {
     //test the filterSong method in the case where the list of songs is not empty
     //but it could not find any song of the specified featured instrument
     @Test
-    void filterSongOneLongTest() {
+    public void filterSongOneLongTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
@@ -155,7 +155,7 @@ public class SongDatabaseTest {
     //test the filterSong method in the case where the list of songs is not empty
     //and returns a list of the songs that have the featured instrument
     @Test
-    void filterSongTwoLongTest() {
+    public void filterSongTwoLongTest() {
         songDatabaseTest.addSong(s1);
         songDatabaseTest.addSong(s2);
         songDatabaseTest.addSong(s3);
@@ -164,5 +164,23 @@ public class SongDatabaseTest {
         assertEquals(2,filteredSongs.size());
         assertTrue(filteredSongs.contains(s1));
         assertTrue(filteredSongs.contains(s2));
+    }
+
+    //Test the favouritesong method in the case where the user favourites the song
+    @Test
+    public void favouriteSongTest() {
+        songDatabaseTest.addSong(s1);
+        songDatabaseTest.favouriteSong(s1);
+        assertTrue(s1.getFavourite());
+    }
+
+    //test the unFavourite method where the user has a song favourited then unfavourited
+    @Test
+    public void unfavouriteSongTest() {
+        songDatabaseTest.addSong(s1);
+        songDatabaseTest.favouriteSong(s1);
+        assertTrue(s1.getFavourite());
+        songDatabaseTest.unFavouriteSong(s1);
+        assertFalse(s1.getFavourite());
     }
 }

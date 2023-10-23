@@ -57,4 +57,12 @@ public class Song {
     public boolean getFavourite() {
         return this.isFavourite;
     }
+
+    public void setFavourite() {
+        this.isFavourite = true;
+    }
+
+    public void resetFavourite() {
+        this.isFavourite = false;
+    }
 }

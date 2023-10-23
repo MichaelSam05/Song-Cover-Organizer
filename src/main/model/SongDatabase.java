@@ -87,7 +87,7 @@ public class SongDatabase {
         }
     }
 
-    //EFFECTS: Return a list of songs that have the featured instrument
+    //EFFECTS: return a list of songs that have the featured instrument
     //else return an empty list if no song has that featured instrument
     public List<Song> filterSong(String instrument) {
         List<Song> filterSong = new ArrayList<>();
@@ -97,6 +97,18 @@ public class SongDatabase {
             }
         }
         return filterSong;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: favourates the song specified by the user
+    public void favouriteSong(Song song) {
+        song.setFavourite();
+    }
+
+    //MODIFIES: this
+    //EFFECTS: unfavourates the song specified by the user
+    public void unFavouriteSong(Song song) {
+        song.resetFavourite();
     }
 }
 

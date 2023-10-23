@@ -10,13 +10,13 @@ class SongTest {
 
     
     @BeforeEach
-    void runBefore() {
+    public void runBefore() {
         s1 = new Song("Glimpse of US", "Joji","Guitar","08/2022",
                 394998,21248,25);
     }
 
     @Test
-    void testConstructor() {
+    public void testConstructor() {
         assertEquals("Glimpse of US",s1.getSongName());
         assertEquals("Joji",s1.getArtistName());
         assertEquals("Guitar",s1.getInstrument());
