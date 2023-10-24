@@ -19,6 +19,10 @@ public class SongDatabase implements Writable {
         songs = new ArrayList<>();
     }
 
+    public String getName() {
+        return this.name;
+    }
+
     //MODIFIES: this
     //EFFECTS: adds a song to the list of songs
     public void addSong(Song song) {

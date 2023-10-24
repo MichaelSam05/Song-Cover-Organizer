@@ -1,0 +1,25 @@
+{
+    "Songs": [
+        {
+            "Dislikes": 100,
+            "Views": 100,
+            "IsFavourite": false,
+            "Instrument": "guitar",
+            "Song Name": "song1",
+            "Likes": 100,
+            "Artist Name": "artist1",
+            "Date": "09/2000"
+        },
+        {
+            "Dislikes": 200,
+            "Views": 200,
+            "IsFavourite": true,
+            "Instrument": "piano",
+            "Song Name": "song2",
+            "Likes": 200,
+            "Artist Name": "artist2",
+            "Date": "10/2022"
+        }
+    ],
+    "Name": "My Song Database"
+}
