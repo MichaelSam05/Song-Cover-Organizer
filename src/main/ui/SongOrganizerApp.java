@@ -1,11 +1,16 @@
 package ui;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import model.Song;
 import model.SongDatabase;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import static java.lang.Integer.*;
 // Represents a song organizer application where the user is prompted to select a choice from the main menu and
@@ -13,13 +18,23 @@ import static java.lang.Integer.*;
 
 public class SongOrganizerApp {
 
+    private static final String JSON_STORE = "./data/songOrganizer.json";
     private Scanner input;
     private static final String QUIT = "quit";
     private SongDatabase songDatabase;
 
+    private JsonWriter jsonWriter;
+
+    private JsonReader jsonReader;
+
+
     //EFFECTS: constructs a song database for the user and runs the app
-    public SongOrganizerApp() {
-        songDatabase = new SongDatabase();
+    public SongOrganizerApp() throws FileNotFoundException {
+        songDatabase = new SongDatabase("My Song Database");
+        input = new Scanner(System.in);
+        input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runOrganizer();
     }
 
@@ -29,8 +44,6 @@ public class SongOrganizerApp {
 
         boolean keepGoing = true;
         String choice;
-        input = new Scanner(System.in);
-        input.useDelimiter("\n");
 
         System.out.println("Welcome\n");
         while (keepGoing) {
@@ -61,6 +74,8 @@ public class SongOrganizerApp {
         System.out.println("filter -> Filter Songs By Instrument");
         System.out.println("fav -> Favourite A Song");
         System.out.println("unfav -> Unfavourite A Song");
+        System.out.println("save -> Save Data");
+        System.out.println("load -> Load Data");
         System.out.println(QUIT + " -> Exit");
         System.out.println("Please Enter One Of The Available Options");
     }
@@ -84,10 +99,37 @@ public class SongOrganizerApp {
             doFavoriteSong();
         } else if (choice.equals("unfav")) {
             doUnFavoriteSong();
+        } else if (choice.equals("save")) {
+            doSaveData();
+        } else if (choice.equals("load")) {
+            doLoadData();
         } else {
             System.out.println("Invalid Choice");
         }
 
+    }
+
+    //MODIFIES: this
+    //EFFECTS: loads the user's songDatabase from a file
+    private void doLoadData() {
+        try {
+            songDatabase = jsonReader.read();
+            System.out.println("Loaded data form" + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to load data from " + JSON_STORE);
+        }
+    }
+
+    //EFFECTS: save the user's songDatabase to a file
+    private void doSaveData() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(songDatabase);
+            jsonWriter.close();
+            System.out.println("Success, saved to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file:" + JSON_STORE);
+        }
     }
 
     //MODIFIES: this
@@ -114,7 +156,7 @@ public class SongOrganizerApp {
         likes = parseInt(input.nextLine());
         System.out.println("Enter Number of Dislikes");
         dislikes = parseInt(input.nextLine());
-        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes);
+        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes, false);
         songDatabase.addSong(song);
     }
 

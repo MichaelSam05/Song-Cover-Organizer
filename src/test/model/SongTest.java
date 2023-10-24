@@ -12,7 +12,7 @@ class SongTest {
     @BeforeEach
     public void runBefore() {
         s1 = new Song("Glimpse of US", "Joji","Guitar","08/2022",
-                394998,21248,25);
+                394998,21248,25, false);
     }
 
     @Test

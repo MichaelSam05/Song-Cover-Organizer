@@ -19,13 +19,13 @@ public class SongDatabaseTest {
     @BeforeEach
     public void runBefore() {
         s1 = new Song("Glimpse of US", "Joji","Guitar","08/2022",
-                394998,21248,25);
+                394998,21248,25,false);
         s2 = new Song("Love Nwantiti","CKay","Guitar","10/2021",
-                1935946, 85182,392);
+                1935946, 85182,392,false);
         s3 = new Song("Lovely", "Billie Eilish", "Violin","02/2019",
-                23134836,761003,3885);
+                23134836,761003,3885,false);
 
-        songDatabaseTest = new SongDatabase();
+        songDatabaseTest = new SongDatabase("Test");
     }
 
     //Test the case where there are no songs in the list

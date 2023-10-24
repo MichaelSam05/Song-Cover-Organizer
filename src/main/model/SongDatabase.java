@@ -1,15 +1,21 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 //Represents a song database where songs can be added to, deleted from, searched, filtered and averages
 // can be calculated
-public class SongDatabase {
+public class SongDatabase implements Writable {
     private List<Song> songs;
+    private String name;
 
     //EFFECTS: constructs a new song database
-    public SongDatabase() {
+    public SongDatabase(String name) {
+        this.name = name;
         songs = new ArrayList<>();
     }
 
@@ -110,5 +116,25 @@ public class SongDatabase {
     public void unFavouriteSong(Song song) {
         song.resetFavourite();
     }
+
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Name", name);
+        json.put("Songs", songsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns the songs in this songDatabase as a JSON array
+    private JSONArray songsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Song next : songs) {
+            jsonArray.put(next.toJson());
+        }
+        return jsonArray;
+    }
+
 }
 

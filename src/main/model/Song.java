@@ -1,8 +1,11 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a song having a song name, artist name, views, likes, dislikes, instrument, date (mm/yyyy)
 // and isFavorite
-public class Song {
+public class Song implements Writable {
     private String songName;
     private String artistName;
     private int views;
@@ -15,7 +18,7 @@ public class Song {
     //REQUIRES: a valid date (dd/yyyy), such that, mm >=01 && mm<=12 and yyyy has 4 digits
     //EFFECTS: constructs a song with isFavorite set to false.
     public Song(String songName, String artistName, String instrument,
-                String date, int views, int likes, int dislikes) {
+                String date, int views, int likes, int dislikes, boolean isFavourite) {
         this.songName = songName;
         this.artistName = artistName;
         this.views = views;
@@ -23,7 +26,7 @@ public class Song {
         this.dislikes = dislikes;
         this.instrument = instrument;
         this.date = date;
-        this.isFavourite = false;
+        this.isFavourite = isFavourite;
     }
 
     public String getSongName() {
@@ -64,5 +67,19 @@ public class Song {
 
     public void resetFavourite() {
         this.isFavourite = false;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("Song Name", songName);
+        json.put("Artist Name",  artistName);
+        json.put("Instrument", instrument);
+        json.put("Date", date);
+        json.put("Views",  views);
+        json.put("Likes", likes);
+        json.put("Dislikes", dislikes);
+        json.put("IsFavourite", isFavourite);
+        return json;
     }
 }
