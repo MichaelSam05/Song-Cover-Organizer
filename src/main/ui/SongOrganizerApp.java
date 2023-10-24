@@ -51,6 +51,7 @@ public class SongOrganizerApp {
             choice = input.nextLine();
 
             if (choice.equals(QUIT)) {
+                saveQuit();
                 keepGoing = false;
                 System.out.println("Terminating...");
             } else {
@@ -58,6 +59,36 @@ public class SongOrganizerApp {
             }
 
         }
+    }
+
+    //EFFECTS: gives the user the choice to safely save the changes they make to the songDatabase in case they
+    //accidentally forgot to save and terminate the application
+    private void saveQuit() {
+        String choice;
+        System.out.println("Do you want to save changes?");
+        choice = yesOrNoMenu();
+        if (choice.equals("y")) {
+            doSaveData();
+        }
+    }
+
+    //EFFECTS: displays a yes or no menu to the user
+    private String yesOrNoMenu() {
+        String choice = null;
+        boolean keepGoing = true;
+
+        while (keepGoing) {
+            System.out.println("y -> yes");
+            System.out.println("n -> no");
+            choice = input.nextLine();
+
+            if (choice.equals("y") || choice.equals("n")) {
+                keepGoing = false;
+            }
+
+        }
+        return choice;
+
     }
 
     //EFFECTS: Displays the main menu
@@ -179,6 +210,7 @@ public class SongOrganizerApp {
     //EFFECTS: deletes a song for the song database
     private void doDeleteSong() {
         String songName;
+        String choice;
         List<Song> songs = songDatabase.getSongs();
         if (songs == null) {
             System.out.println("No songs in the organizer");
@@ -189,8 +221,15 @@ public class SongOrganizerApp {
             if (songDatabase.searchSong(songName) == null) {
                 System.out.println("Song does not exist");
             } else {
-                songDatabase.deleteSong(songName);
-                System.out.println("Successful deletion");
+                System.out.println("Are You Sure?");
+                choice = yesOrNoMenu();
+                if (choice.equals("y")) {
+                    songDatabase.deleteSong(songName);
+                    System.out.println("Successful deletion");
+                } else {
+                    System.out.println("Returning to main menu");
+                }
+
             }
         }
 
