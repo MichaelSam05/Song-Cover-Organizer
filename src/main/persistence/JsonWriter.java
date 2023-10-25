@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.io.*;
 
+//"Code influenced by the JsonSerizalizationDemo https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git"
 // Represents a writer that writes JSON representation of songDatabase to file
 public class JsonWriter {
     private static final int TAB = 4;

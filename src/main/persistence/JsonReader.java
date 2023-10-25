@@ -11,6 +11,7 @@ import java.util.stream.Stream;
 
 import org.json.*;
 
+//"Code influenced by the JsonSerizalizationDemo https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git"
 // Represents a reader that reads songDatabase from JSON data stored in file
 public class JsonReader {
     private String source;
@@ -20,7 +21,7 @@ public class JsonReader {
         this.source = source;
     }
 
-    // EFFECTS: reads songDatabe from file and returns it;
+    // EFFECTS: reads songDatabase from file and returns it;
     // throws IOException if an error occurs reading data from file
     public SongDatabase read() throws IOException {
         String jsonData = readFile(source);
