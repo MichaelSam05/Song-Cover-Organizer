@@ -122,6 +122,7 @@ public class SongDatabase implements Writable {
     }
 
 
+    //EFFECTS: converts the songDatabase into a JSONObject and returns it
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

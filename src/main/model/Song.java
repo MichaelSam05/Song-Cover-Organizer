@@ -69,6 +69,7 @@ public class Song implements Writable {
         this.isFavourite = false;
     }
 
+    //EFFECTS: converts a song into a JSONObject and returns it
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
