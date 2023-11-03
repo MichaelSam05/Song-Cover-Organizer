@@ -1,8 +1,8 @@
 package ui;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -11,6 +11,9 @@ import model.Song;
 import model.SongDatabase;
 import persistence.JsonReader;
 import persistence.JsonWriter;
+import ui.exceptions.DateFormatException;
+import ui.exceptions.MonthOutOfRangeException;
+import ui.exceptions.NegativeYearException;
 
 import static java.lang.Integer.*;
 // Represents a song organizer application where the user is prompted to select a choice from the main menu and
@@ -193,17 +196,31 @@ public class SongOrganizerApp {
 
     //EFFECTS: prompts the user to enter a valid date and returns the formatted date
     private String getFormattedDate() {
+        int month = 0;
+        int year = 0;
+        boolean valid = false;
+        do {
+            try {
+                System.out.println("Enter Upload Month (mm)");
+                month = parseInt(input.nextLine());
+                System.out.println("Enter Upload Year (yyyy)");
+                year = parseInt(input.nextLine());
+            } catch (NumberFormatException nfe) {
+                System.out.println("Please enter integers for the month and year");
+            }
 
-        String month = "0"; //force entry into the loop
-        String year = "0"; //force entry into the loop
-        while (!validDate(month, year)) {
-            System.out.println("Enter Upload Month (mm)");
-            month = input.nextLine();
-            System.out.println("Enter Upload Year (yyyy)");
-            year = input.nextLine();
-        }
+            try {
+                valid = validDate(month, year);
+            } catch (MonthOutOfRangeException mor) {
+                System.out.println(mor.getMessage());
+            } catch (NegativeYearException nye) {
+                System.out.println(nye.getMessage());
+            } catch (DateFormatException dfe) {
+                System.out.println(dfe.getMessage());
+            }
 
-        return month + "/" + year; //concatenates and returns the string in valid format
+        } while (valid == false);
+        return Integer.toString(month) + "/" + Integer.toString(year);
     }
 
     //MODIFIES: this
@@ -344,11 +361,23 @@ public class SongOrganizerApp {
         }
     }
 
+    //THROWS:
+    //- MonthOutOfRangeException: if the month entered does not exist, that is, not >= 01 && <= 12
+    //- NegativeYearException: if the year entered is negative
+    //- DateFormatException: if either the month does not contain 2 digits (mm) or the year does
+    //  not contain 4 digits (yyyy)
     //EFFECTS: returns true if a valid date, that is, obeys the required format
-    // else return false
-    private boolean validDate(String month, String year) {
-        int intMonth = parseInt(month);
-        int length = year.length();
-        return (intMonth >= 1 && intMonth <= 12) && (length == 4);
+    // else throw the relevant exception
+    private boolean validDate(int month, int year) throws MonthOutOfRangeException, NegativeYearException,
+            DateFormatException {
+        if (year < 0) {
+            throw new NegativeYearException("The year entered cannot be negative");
+        } else if (String.valueOf(year).length() != 4 || String.valueOf(month).length() != 2) {
+            throw new DateFormatException("Your date is not the right format");
+        } else if (month < 1 || month > 12) {
+            throw new MonthOutOfRangeException("The month entered must be between 01-12");
+        } else {
+            return true;
+        }
     }
 }
