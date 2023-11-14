@@ -1,6 +1,6 @@
-package ui.exceptions;
+package model.exceptions;
 
-public class MonthOutOfRangeException extends DateFormatException {
+public class MonthOutOfRangeException extends Exception {
     public MonthOutOfRangeException() {
         super();
     }

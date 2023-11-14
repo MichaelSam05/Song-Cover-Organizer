@@ -7,10 +7,6 @@ public class Main {
 
     //instantiates a new Song Organizer App
     public static void main(String[] args) {
-        try {
-            new SongOrganizerApp();
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found");
-        }
+        new SongOrganizerAppUI();
     }
 }

@@ -1,6 +1,6 @@
-package ui.exceptions;
+package model.exceptions;
 
-public class NegativeYearException extends DateFormatException {
+public class NegativeYearException extends Exception {
     public NegativeYearException() {
         super();
     }

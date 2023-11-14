@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 //Represents a song database where songs can be added to, deleted from, searched, filtered and averages
@@ -97,6 +99,7 @@ public class SongDatabase implements Writable {
         }
     }
 
+
     //EFFECTS: return a list of songs that have the featured instrument
     //else return an empty list if no song has that featured instrument
     public List<Song> filterSong(String instrument) {
@@ -108,6 +111,21 @@ public class SongDatabase implements Writable {
         }
         return filterSong;
     }
+
+    //EFFECTS: return the sorted list of songs based on the parameter specified by the user
+//    public List<Song> sortSongs(String basedOn) {
+//        List<Song> sorted = new ArrayList<>();
+//        if (basedOn.equals("dislike")) {
+//            //stub
+//        } else if (basedOn.equals(("like"))) {
+//            //stub
+//        } else if (basedOn.equals("view")) {
+//            //stub
+//        } else {
+//            return null;
+//        }
+//        return sorted;
+//    }
 
     //MODIFIES: this
     //EFFECTS: favourates the song specified by the user

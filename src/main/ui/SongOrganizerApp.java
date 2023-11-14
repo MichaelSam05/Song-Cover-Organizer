@@ -11,9 +11,9 @@ import model.Song;
 import model.SongDatabase;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.exceptions.DateFormatException;
-import ui.exceptions.MonthOutOfRangeException;
-import ui.exceptions.NegativeYearException;
+import model.exceptions.DateFormatException;
+import model.exceptions.MonthOutOfRangeException;
+import model.exceptions.NegativeYearException;
 
 import static java.lang.Integer.*;
 // Represents a song organizer application where the user is prompted to select a choice from the main menu and
@@ -38,7 +38,7 @@ public class SongOrganizerApp {
         input.useDelimiter("\n");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        runOrganizer();
+        //runOrganizer();
     }
 
     // MODIFIES: this
@@ -288,7 +288,7 @@ public class SongOrganizerApp {
     }
 
     //EFFECT: Displays a list of all the songs in the list of songs
-    private void doGenerateList() {
+    public void doGenerateList() {
         List<Song> songs = songDatabase.getSongs();
         if (songs == null) {
             System.out.println("There are no songs in the organizer");
@@ -368,7 +368,7 @@ public class SongOrganizerApp {
     //  not contain 4 digits (yyyy)
     //EFFECTS: returns true if a valid date, that is, obeys the required format
     // else throw the relevant exception
-    private boolean validDate(int month, int year) throws MonthOutOfRangeException, NegativeYearException,
+    public boolean validDate(int month, int year) throws MonthOutOfRangeException, NegativeYearException,
             DateFormatException {
         if (year < 0) {
             throw new NegativeYearException("The year entered cannot be negative");
