@@ -11,42 +11,46 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class SongOrganizerAppUI extends JFrame {
-    private SongOrganizerApp soa;
 
-    private SongDatabase sd;
+    public SongDatabase sd;
 
-    private final static int WIDTH = 400;
+    private final static int WIDTH = 1000;
 
-    private final static int HEIGHT = 400;
+    private final static int HEIGHT = 800;
+
 
 
     public SongOrganizerAppUI() {
-        try {
-            soa = new SongOrganizerApp();
-        } catch (FileNotFoundException e) {
-            System.out.println("File Not Found");
-        }
+
         sd = new SongDatabase("My Song Database");
+
         setTitle("My Song Database");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
-        setVisible(true);
         setLayout(null);
         setResizable(false);
-
         addMenuBottons();
+        setVisible(true);
     }
 
     private void addMenuBottons() {
         JPanel menuPanel = new JPanel();
+        menuPanel.setLayout(null);
         menuPanel.setBackground(Color.blue);
-        menuPanel.setBounds(100, 0, 200, 400);
+        menuPanel.setBounds(0, 0, 200, 800);
+        JLabel menuLabel = new JLabel("MAIN MENU");
+        menuLabel.setBounds(10,10,190,40);
+        JButton addButton = new JButton(new AddSongAction(sd));
+        addButton.setBounds(10,40,180,40);
+        JButton deleteButton = new JButton(new DeleteSongAction(sd));
+        deleteButton.setBounds(10,90,180,40);
+        JButton listButton = new JButton(new ListSongsAction(sd));
+        listButton.setBounds(10,140,180,40);
 
-        JButton addButton = new JButton(new AddSongAction());
-        JButton deleteButton = new JButton("Remove Song");
-
+        menuPanel.add(menuLabel);
         menuPanel.add(addButton);
         menuPanel.add(deleteButton);
+        menuPanel.add(listButton);
         add(menuPanel);
     }
 

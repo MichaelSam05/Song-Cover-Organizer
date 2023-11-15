@@ -38,7 +38,7 @@ public class SongOrganizerApp {
         input.useDelimiter("\n");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
-        //runOrganizer();
+        runOrganizer();
     }
 
     // MODIFIES: this
@@ -205,6 +205,7 @@ public class SongOrganizerApp {
                 month = parseInt(input.nextLine());
                 System.out.println("Enter Upload Year (yyyy)");
                 year = parseInt(input.nextLine());
+
             } catch (NumberFormatException nfe) {
                 System.out.println("Please enter integers for the month and year");
             }
