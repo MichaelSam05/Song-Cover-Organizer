@@ -24,6 +24,7 @@ public class AddSongAction extends AbstractAction {
     private SongDatabase sd;
 
 
+
     public AddSongAction(SongDatabase sd) {
         super("Add New Song");
         this.sd = sd;
@@ -33,7 +34,6 @@ public class AddSongAction extends AbstractAction {
     //EFFECTS: prompts the user to enter the fields related to a song
     @Override
     public void actionPerformed(ActionEvent e) {
-
         String songName = JOptionPane.showInputDialog(null, "Please Enter Song Name",
                 "Add New Song",
                 JOptionPane.PLAIN_MESSAGE);

@@ -4,8 +4,12 @@ import model.Song;
 import model.SongDatabase;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.util.List;
 
@@ -16,31 +20,51 @@ public class ListSongsAction extends AbstractAction {
     private SongDatabase sd;
     private JFrame window;
 
+    private JFrame frame;
+
+    private JPanel tablePanel;
 
     private static final int NUM_COLS = 8;
 
-    public ListSongsAction(SongDatabase sd) {
+    private Container mainFrame;
+
+
+
+
+
+    public ListSongsAction(SongDatabase sd, JFrame frame) {
         super("List All Songs");
         this.sd = sd;
+        this.frame = frame;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        initializeWindow();
-        String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
-                "Favorite"};
-        Object[][] data = getData();
+        List<Song> songs = sd.getSongs();
+        if (songs == null) {
+            JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
+                    JOptionPane.ERROR_MESSAGE);
+        } else {
+            initializeWindow();
+            String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
+                    "Favorite"};
+            Object[][] data = getData(songs);
 
-        JTable songTable = new JTable(data, colNames);
-        JScrollPane songPane = new JScrollPane(songTable);
-
-        window.add(songPane);
+            JTable songTable = new JTable(data, colNames);
+            JScrollPane songPane = new JScrollPane(songTable);
+            window.add(songPane);
+//        tablePanel.add(songPane);
+//        mainFrame = frame.getContentPane();
+//        mainFrame.add(tablePanel);
+//        mainFrame.revalidate();
+//        mainFrame.repaint();
+//        songPane.setVisible(true);
+        }
 
     }
 
     //EFFECTS: gets all the songs stored in the database and puts them into a 2D Object Array
-    private Object[][] getData() {
-        List<Song> songs = sd.getSongs();
+    private Object[][] getData(List<Song> songs) {
         Object[][] data = new Object[songs.size()][NUM_COLS];
         int i;
         for (i = 0; i < songs.size(); i++) {
@@ -57,14 +81,22 @@ public class ListSongsAction extends AbstractAction {
         return data;
     }
 
-    //EFFECTS: creates a new window for displaying the table
+    //EFFECTS: creates a new panel for displaying the table
     private void initializeWindow() {
         window = new JFrame();
-        window.setLayout(new FlowLayout());
-        window.setSize(400,400);
-        //window.setBounds(201,0,800, 800);
+        window.setSize(500,500);
         window.setVisible(true);
+
+//        tablePanel = new JPanel();
+//        tablePanel.setLayout(new FlowLayout());
+//        tablePanel.setBounds(201,0,800, 800);
+//        tablePanel.setBackground(Color.GREEN);
+//        cp = frame.getContentPane();
+//        cp.add(tablePanel);
+//        cp.revalidate();
+//        cp.setVisible(true);
     }
+
 
 
 }
