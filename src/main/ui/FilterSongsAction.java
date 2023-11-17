@@ -9,21 +9,23 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class FilterSongsAction extends AbstractAction {
-    private SongDatabase sd;
+    //private SongDatabase sd;
     private JFrame window;
     private JPanel tablePanel;
 
     private static final int NUM_COLS = 8;
+    private SongDatabaseState state;
 
-    public FilterSongsAction(SongDatabase sd, JPanel tablePanel) {
+    public FilterSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel) {
         super("Filter Songs");
-        this.sd = sd;
+        //this.sd = sd;
         this.tablePanel = tablePanel;
+        this.state = state;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = sd.getSongs();
+        List<Song> songs = state.sd.getSongs();
         if (songs == null) {
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -31,7 +33,7 @@ public class FilterSongsAction extends AbstractAction {
             String instrument = JOptionPane.showInputDialog(null,
                     "Please Enter The Instrument You Wish to Filter", "Filter Songs",
                     JOptionPane.PLAIN_MESSAGE);
-            List<Song> filtered = sd.filterSong(instrument);
+            List<Song> filtered = state.sd.filterSong(instrument);
             if (filtered == null) {
                 JOptionPane.showMessageDialog(null, "Cannot find " + instrument
                         + " in the song list", "Error", JOptionPane.ERROR_MESSAGE);

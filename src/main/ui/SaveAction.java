@@ -13,20 +13,22 @@ public class SaveAction extends AbstractAction {
     private JsonWriter jsonWriter;
 
     private String location;
+    private SongDatabaseState state;
 
 
-    public SaveAction(SongDatabase sd, JsonWriter jsonWriter, String location) {
+    public SaveAction(/*SongDatabase sd*/SongDatabaseState state, JsonWriter jsonWriter, String location) {
         super("Save Data");
         this.sd = sd;
         this.jsonWriter = jsonWriter;
         this.location = location;
+        this.state = state;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         try {
             jsonWriter.open();
-            jsonWriter.write(sd);
+            jsonWriter.write(state.sd);
             jsonWriter.close();
             JOptionPane.showMessageDialog(null,
                     "Success, saved to " + location, "Save Data", JOptionPane.PLAIN_MESSAGE);

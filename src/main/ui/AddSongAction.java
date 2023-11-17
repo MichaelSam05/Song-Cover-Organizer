@@ -22,12 +22,14 @@ public class AddSongAction extends AbstractAction {
 
     private final static int HEIGHT = 400;
     private SongDatabase sd;
+    private SongDatabaseState state;
 
 
 
-    public AddSongAction(SongDatabase sd) {
+    public AddSongAction(/*SongDatabase sd*/SongDatabaseState state) {
         super("Add New Song");
-        this.sd = sd;
+        //this.sd = sd;
+        this.state = state;
     }
 
     //MODIFIES: this
@@ -53,7 +55,7 @@ public class AddSongAction extends AbstractAction {
         int dislikes = getValidDislikes();
 
         Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes, false);
-        sd.addSong(song);
+        state.sd.addSong(song);
     }
 
     private int getValidViews() {

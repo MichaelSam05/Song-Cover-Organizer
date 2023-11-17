@@ -18,7 +18,7 @@ import java.util.List;
 //represents what happens when the user wants to view a list of all their songs
 public class ListSongsAction extends AbstractAction {
 
-    private SongDatabase sd;
+   // private SongDatabase sd;
     private JFrame window;
 
     private JFrame frame;
@@ -26,26 +26,30 @@ public class ListSongsAction extends AbstractAction {
     private JPanel tablePanel;
 
     private static final int NUM_COLS = 8;
+    private LoadAction load;
+    private SongDatabaseState state;
 
-    private static final String FAV_IMG = "./data/favourited.png";
-
-    private static final String UNFAV_IMG = "./data/unfavourited.png";
-
-
-    private Container mainFrame;
+//    private static final String FAV_IMG = "./data/favourited.png";
+//
+//    private static final String UNFAV_IMG = "./data/unfavourited.png";
 
 
-    public ListSongsAction(SongDatabase sd, JPanel tablePanel,JFrame frame) {
+    public ListSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel, JFrame frame) {
         super("List All Songs");
-        this.sd = sd;
+        //this.sd = sd;
         this.frame = frame;
         this.tablePanel = tablePanel;
+        this.state = state;
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = sd.getSongs();
+        List<Song> songs = state.sd.getSongs();
         if (songs == null) {
+//            tablePanel.removeAll();
+//            tablePanel.revalidate();
+//            tablePanel.repaint();
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
@@ -54,7 +58,7 @@ public class ListSongsAction extends AbstractAction {
                     "Favorite"};
             Object[][] data = getData(songs);
             tablePanel.removeAll();
-            DefaultTableModel model = new DefaultTableModel(data,colNames);
+            DefaultTableModel model = new DefaultTableModel(data, colNames);
             JTable songTable = new JTable(model);
             songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
             //songTable.getColumnModel().getColumn(7).setCellEditor(new FavouriteEditior());
@@ -74,6 +78,7 @@ public class ListSongsAction extends AbstractAction {
 
     }
 
+
     //EFFECTS: gets all the songs stored in the database and puts them into a 2D Object Array
     private Object[][] getData(List<Song> songs) {
         Object[][] data = new Object[songs.size()][NUM_COLS];
@@ -86,21 +91,10 @@ public class ListSongsAction extends AbstractAction {
             data[i][4] = songs.get(i).getLikes();
             data[i][5] = songs.get(i).getDislikes();
             data[i][6] = songs.get(i).getDate();
-            //ImageIcon image = decideImage(songs.get(i).getFavourite());
-            //JLabel lable = new JLabel();
             data[i][7] = songs.get(i).getFavourite();
         }
 
         return data;
-    }
-
-    private ImageIcon decideImage(Boolean isFavourite) {
-        ImageIcon favourite = new ImageIcon(FAV_IMG);
-        ImageIcon unfavourite = new ImageIcon(UNFAV_IMG);
-        if (isFavourite) {
-            return favourite;
-        }
-        return unfavourite;
     }
 
 

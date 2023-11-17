@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class SongOrganizerAppUI extends JFrame {
 
     private SongDatabase sd;
+    private SongDatabaseState state;
 
     private final static int WIDTH = 1000;
 
@@ -26,11 +27,14 @@ public class SongOrganizerAppUI extends JFrame {
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/songOrganizer.json";
 
+    //private LoadAction load;
+
     public SongOrganizerAppUI() {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
-        sd = new SongDatabase("My Song Database");
-        setTitle("My Song Database");
+        //sd = new SongDatabase("My Song Database");
+        state = new SongDatabaseState();
+        setTitle(state.name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLayout(null);
@@ -50,21 +54,21 @@ public class SongOrganizerAppUI extends JFrame {
         menuLabel.setBounds(10,10,190,40);
 
         JPanel displayPanel = initializePanel();
-        JButton addButton = new JButton(new AddSongAction(sd));
+        JButton addButton = new JButton(new AddSongAction(state));
         addButton.setBounds(10,40,180,40);
-        JButton deleteButton = new JButton(new DeleteSongAction(sd));
+        JButton deleteButton = new JButton(new DeleteSongAction(state));
         deleteButton.setBounds(10,90,180,40);
-        JButton listButton = new JButton(new ListSongsAction(sd,displayPanel,this));
+        JButton listButton = new JButton(new ListSongsAction(state,displayPanel,this));
         listButton.setBounds(10,140,180,40);
-        JButton filterButton = new JButton(new FilterSongsAction(sd,displayPanel));
+        JButton filterButton = new JButton(new FilterSongsAction(state,displayPanel));
         filterButton.setBounds(10,190,180,40);
-        JButton favButton = new JButton(new FavouriteSongAction(sd));
+        JButton favButton = new JButton(new FavouriteSongAction(state));
         favButton.setBounds(10,240,180,40);
-        JButton unfavButton = new JButton(new UnfavouriteSongAction(sd));
+        JButton unfavButton = new JButton(new UnfavouriteSongAction(state));
         unfavButton.setBounds(10,290,180,40);
-        JButton saveButton = new JButton(new SaveAction(sd,jsonWriter,JSON_STORE));
+        JButton saveButton = new JButton(new SaveAction(state,jsonWriter,JSON_STORE));
         saveButton.setBounds(10,340,180,40);
-        JButton loadButton = new JButton(new LoadAction(sd,jsonReader,JSON_STORE,this));
+        JButton loadButton = new JButton(new LoadAction(state,jsonReader,JSON_STORE,this,displayPanel));
         loadButton.setBounds(10,390,180,40);
 
         menuPanel.add(menuLabel);

@@ -8,16 +8,18 @@ import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class FavouriteSongAction extends AbstractAction {
-    private SongDatabase sd;
+    //private SongDatabase sd;
+    private SongDatabaseState state;
 
-    public FavouriteSongAction(SongDatabase sd) {
+    public FavouriteSongAction(/*SongDatabase sd*/ SongDatabaseState state) {
         super("Favourite A Song");
-        this.sd = sd;
+        //this.sd = sd;
+        this.state = state;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = sd.getSongs();
+        List<Song> songs = state.sd.getSongs();
         if (songs == null) {
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -25,7 +27,7 @@ public class FavouriteSongAction extends AbstractAction {
             String songName = JOptionPane.showInputDialog(null, "Please Enter Song Name",
                     "Favourite A Song",
                     JOptionPane.PLAIN_MESSAGE);
-            Song favSong = sd.searchSong(songName);
+            Song favSong = state.sd.searchSong(songName);
 
             if (favSong == null) {
                 JOptionPane.showMessageDialog(null, "Cannot find " + songName

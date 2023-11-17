@@ -10,16 +10,18 @@ import java.util.List;
 public class DeleteSongAction extends AbstractAction {
 
     private SongDatabase sd;
+    private SongDatabaseState state;
 
-    public DeleteSongAction(SongDatabase sd) {
+    public DeleteSongAction(/*SongDatabase sd*/SongDatabaseState state) {
         super("Delete Song");
-        this.sd = sd;
+        //this.sd = sd;
+        this.state = state;
     }
 
     //EFFECTS: Deletes the song specified by the user
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = sd.getSongs();
+        List<Song> songs = state.sd.getSongs();
 
         if (songs == null) {
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
