@@ -4,6 +4,7 @@ import model.Song;
 import model.SongDatabase;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
@@ -26,16 +27,19 @@ public class ListSongsAction extends AbstractAction {
 
     private static final int NUM_COLS = 8;
 
+    private static final String FAV_IMG = "./data/favourited.png";
+
+    private static final String UNFAV_IMG = "./data/unfavourited.png";
+
+
     private Container mainFrame;
 
 
-
-
-
-    public ListSongsAction(SongDatabase sd, JFrame frame) {
+    public ListSongsAction(SongDatabase sd, JPanel tablePanel,JFrame frame) {
         super("List All Songs");
         this.sd = sd;
         this.frame = frame;
+        this.tablePanel = tablePanel;
     }
 
     @Override
@@ -45,14 +49,21 @@ public class ListSongsAction extends AbstractAction {
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            initializeWindow();
+            //initializeWindow();
             String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
                     "Favorite"};
             Object[][] data = getData(songs);
-
-            JTable songTable = new JTable(data, colNames);
+            tablePanel.removeAll();
+            DefaultTableModel model = new DefaultTableModel(data,colNames);
+            JTable songTable = new JTable(model);
+            songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
+            //songTable.getColumnModel().getColumn(7).setCellEditor(new FavouriteEditior());
+            songTable.setRowHeight(50);
             JScrollPane songPane = new JScrollPane(songTable);
-            window.add(songPane);
+            tablePanel.add(songPane);
+            tablePanel.revalidate();
+            tablePanel.repaint();
+//            window.add(songPane);
 //        tablePanel.add(songPane);
 //        mainFrame = frame.getContentPane();
 //        mainFrame.add(tablePanel);
@@ -75,28 +86,39 @@ public class ListSongsAction extends AbstractAction {
             data[i][4] = songs.get(i).getLikes();
             data[i][5] = songs.get(i).getDislikes();
             data[i][6] = songs.get(i).getDate();
+            //ImageIcon image = decideImage(songs.get(i).getFavourite());
+            //JLabel lable = new JLabel();
             data[i][7] = songs.get(i).getFavourite();
         }
 
         return data;
     }
 
+    private ImageIcon decideImage(Boolean isFavourite) {
+        ImageIcon favourite = new ImageIcon(FAV_IMG);
+        ImageIcon unfavourite = new ImageIcon(UNFAV_IMG);
+        if (isFavourite) {
+            return favourite;
+        }
+        return unfavourite;
+    }
+
+
     //EFFECTS: creates a new panel for displaying the table
     private void initializeWindow() {
-        window = new JFrame();
-        window.setSize(500,500);
-        window.setVisible(true);
+//        window = new JFrame();
+//        window.setSize(500,500);
+//        window.setVisible(true);
 
-//        tablePanel = new JPanel();
-//        tablePanel.setLayout(new FlowLayout());
-//        tablePanel.setBounds(201,0,800, 800);
-//        tablePanel.setBackground(Color.GREEN);
+        tablePanel = new JPanel();
+        tablePanel.setLayout(new FlowLayout());
+        tablePanel.setBounds(201, 0, 800, 800);
+        tablePanel.setBackground(Color.GREEN);
 //        cp = frame.getContentPane();
 //        cp.add(tablePanel);
 //        cp.revalidate();
 //        cp.setVisible(true);
     }
-
 
 
 }

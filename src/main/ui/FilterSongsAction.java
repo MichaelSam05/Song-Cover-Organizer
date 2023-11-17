@@ -4,18 +4,21 @@ import model.Song;
 import model.SongDatabase;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
 public class FilterSongsAction extends AbstractAction {
     private SongDatabase sd;
     private JFrame window;
+    private JPanel tablePanel;
 
     private static final int NUM_COLS = 8;
 
-    public FilterSongsAction(SongDatabase sd) {
+    public FilterSongsAction(SongDatabase sd, JPanel tablePanel) {
         super("Filter Songs");
         this.sd = sd;
+        this.tablePanel = tablePanel;
     }
 
     @Override
@@ -36,15 +39,29 @@ public class FilterSongsAction extends AbstractAction {
                 String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
                         "Favorite"};
                 Object[][] data = getData(filtered);
-                initializeWindow();
                 JTable songTable = new JTable(data, colNames);
+                //initializeColumns(songTable);
                 JScrollPane songPane = new JScrollPane(songTable);
-
-                window.add(songPane);
+                tablePanel.removeAll();
+                tablePanel.add(songPane);
+                tablePanel.revalidate();
+                tablePanel.repaint();
             }
 
         }
     }
+
+//    private void initializeColumns(JTable songTable) {
+//        TableColumn column = null;
+//        for (int i = 0; i < NUM_COLS; i++) {
+//            column = songTable.getColumnModel().getColumn(i);
+//            if (i <= 2) {
+//                column.setPreferredWidth(100);
+//            } else {
+//                column.setPreferredWidth(50);
+//            }
+//        }
+//    }
 
     private Object[][] getData(List<Song> songs) {
         Object[][] data = new Object[songs.size()][NUM_COLS];
