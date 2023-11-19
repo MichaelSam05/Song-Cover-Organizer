@@ -8,21 +8,23 @@ import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+//Represents the filter songs button and the action that occurs when clicked
 public class FilterSongsAction extends AbstractAction {
-    //private SongDatabase sd;
-    private JFrame window;
     private JPanel tablePanel;
 
     private static final int NUM_COLS = 8;
     private SongDatabaseState state;
 
-    public FilterSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel) {
+    //EFFECTS: constructs the filter songs button
+    public FilterSongsAction(SongDatabaseState state, JPanel tablePanel) {
         super("Filter Songs");
-        //this.sd = sd;
         this.tablePanel = tablePanel;
         this.state = state;
     }
 
+    //MODIFIES: this
+    //EFFECTS: when the button is clicked, filters the songs list to only show songs that have the instrument field the
+    //same as the user specified assuming that that instrument is in the list
     @Override
     public void actionPerformed(ActionEvent e) {
         List<Song> songs = state.sd.getSongs();
@@ -42,29 +44,26 @@ public class FilterSongsAction extends AbstractAction {
                         "Favorite"};
                 Object[][] data = getData(filtered);
                 JTable songTable = new JTable(data, colNames);
-                //initializeColumns(songTable);
+                songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
+                songTable.setRowHeight(50);
                 JScrollPane songPane = new JScrollPane(songTable);
-                tablePanel.removeAll();
-                tablePanel.add(songPane);
-                tablePanel.revalidate();
-                tablePanel.repaint();
+                updateFame(songPane);
             }
 
         }
     }
 
-//    private void initializeColumns(JTable songTable) {
-//        TableColumn column = null;
-//        for (int i = 0; i < NUM_COLS; i++) {
-//            column = songTable.getColumnModel().getColumn(i);
-//            if (i <= 2) {
-//                column.setPreferredWidth(100);
-//            } else {
-//                column.setPreferredWidth(50);
-//            }
-//        }
-//    }
+    //MODIFIES: this
+    //EFFECTS: updates the frame to show the JTable
+    private void updateFame(JScrollPane songPane) {
+        tablePanel.removeAll();
+        tablePanel.add(songPane);
+        tablePanel.revalidate();
+        tablePanel.repaint();
+    }
 
+
+    //EFFECTS: stores all the songs in a 2D Object array
     private Object[][] getData(List<Song> songs) {
         Object[][] data = new Object[songs.size()][NUM_COLS];
         int i;
@@ -82,9 +81,4 @@ public class FilterSongsAction extends AbstractAction {
         return data;
     }
 
-    public void initializeWindow() {
-        window = new JFrame();
-        window.setSize(500, 500);
-        window.setVisible(true);
-    }
 }

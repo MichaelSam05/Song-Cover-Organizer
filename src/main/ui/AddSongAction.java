@@ -17,18 +17,14 @@ import model.exceptions.DateFormatException;
 import model.exceptions.MonthOutOfRangeException;
 import model.exceptions.NegativeYearException;
 
+//Represents the add song button as well as the action that occurs when clicked
 public class AddSongAction extends AbstractAction {
-    private final static int WIDTH = 400;
-
-    private final static int HEIGHT = 400;
-    private SongDatabase sd;
     private SongDatabaseState state;
 
 
-
+    //EFFECTS: constructs the add song button
     public AddSongAction(/*SongDatabase sd*/SongDatabaseState state) {
         super("Add New Song");
-        //this.sd = sd;
         this.state = state;
     }
 

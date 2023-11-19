@@ -34,7 +34,7 @@ public class ListSongsAction extends AbstractAction {
 //    private static final String UNFAV_IMG = "./data/unfavourited.png";
 
 
-    public ListSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel, JFrame frame) {
+    public ListSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel) {
         super("List All Songs");
         //this.sd = sd;
         this.frame = frame;

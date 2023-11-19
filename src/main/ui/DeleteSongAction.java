@@ -7,18 +7,17 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+//Represents the delete button as well as the action that occurs when clicked
 public class DeleteSongAction extends AbstractAction {
-
-    private SongDatabase sd;
     private SongDatabaseState state;
 
-    public DeleteSongAction(/*SongDatabase sd*/SongDatabaseState state) {
+    public DeleteSongAction(SongDatabaseState state) {
         super("Delete Song");
-        //this.sd = sd;
         this.state = state;
     }
 
-    //EFFECTS: Deletes the song specified by the user
+    //MODIFIES: this
+    //EFFECTS: deletes the song specified by the user
     @Override
     public void actionPerformed(ActionEvent e) {
         List<Song> songs = state.sd.getSongs();
@@ -30,7 +29,7 @@ public class DeleteSongAction extends AbstractAction {
             String songName = JOptionPane.showInputDialog(null, "Please Enter Song Name",
                     "Delete Song",
                     JOptionPane.PLAIN_MESSAGE);
-            Song deleteSong = sd.searchSong(songName);
+            Song deleteSong = state.sd.searchSong(songName);
 
             if (deleteSong == null) {
                 JOptionPane.showMessageDialog(null, "Cannot find " + songName

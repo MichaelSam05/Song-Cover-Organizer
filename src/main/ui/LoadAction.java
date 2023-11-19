@@ -20,7 +20,8 @@ public class LoadAction extends AbstractAction {
     private SongDatabaseState state;
 
 
-    public LoadAction(/*SongDatabase sd*/SongDatabaseState state, JsonReader jsonReader, String location, JFrame frame, JPanel panel) {
+    public LoadAction(/*SongDatabase sd*/SongDatabaseState state, JsonReader jsonReader, String location,
+                                         JPanel panel) {
         super("Load Data");
         this.sd = sd;
         this.jsonReader = jsonReader;

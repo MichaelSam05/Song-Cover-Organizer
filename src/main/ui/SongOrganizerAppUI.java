@@ -1,64 +1,67 @@
 package ui;
 
-import model.Song;
-import model.SongDatabase;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
+//Represents the GUI for this application that the user interacts with
 public class SongOrganizerAppUI extends JFrame {
 
-    private SongDatabase sd;
     private SongDatabaseState state;
 
-    private final static int WIDTH = 1000;
+    private final static int FRAME_WIDTH = 1000;
 
-    private final static int HEIGHT = 800;
+    private final static int FRAME_HEIGHT = 700;
 
+    private final static Color FRAME_COLOR = Color.CYAN;
 
     private JsonWriter jsonWriter;
 
     private JsonReader jsonReader;
     private static final String JSON_STORE = "./data/songOrganizer.json";
 
-    //private LoadAction load;
 
+    //EFFECTS: constructs the application GUI to be displayed to the user
     public SongOrganizerAppUI() {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
-        //sd = new SongDatabase("My Song Database");
         state = new SongDatabaseState();
-        setTitle(state.name);
+        setTitle(state.NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WIDTH, HEIGHT);
+        setSize(FRAME_WIDTH, FRAME_HEIGHT);
         setLayout(null);
         setResizable(false);
-        addMenuBottons();
+        constructGUI();
         setVisible(true);
     }
 
     //MODIFIES: this
-    //EFFECTS: creates a menuPanel that contains the button options available to the user
-    private void addMenuBottons() {
+    //EFFECTS: establishes the layout of the GUI
+    private void constructGUI() {
         JPanel menuPanel = new JPanel();
         menuPanel.setLayout(null);
-        menuPanel.setBackground(Color.blue);
-        menuPanel.setBounds(0, 0, 200, 800);
+        menuPanel.setBackground(FRAME_COLOR);
+        menuPanel.setBounds(0, 0, 200, FRAME_HEIGHT);
         JLabel menuLabel = new JLabel("MAIN MENU");
         menuLabel.setBounds(10,10,190,40);
+        menuPanel.add(menuLabel);
 
         JPanel displayPanel = initializePanel();
+        createButtons(menuPanel,displayPanel);
+
+        add(displayPanel);
+        add(menuPanel);
+    }
+
+    //EFFECTS: creates the button options available to the user
+    private void createButtons(JPanel menuPanel, JPanel displayPanel) {
         JButton addButton = new JButton(new AddSongAction(state));
         addButton.setBounds(10,40,180,40);
         JButton deleteButton = new JButton(new DeleteSongAction(state));
         deleteButton.setBounds(10,90,180,40);
-        JButton listButton = new JButton(new ListSongsAction(state,displayPanel,this));
+        JButton listButton = new JButton(new ListSongsAction(state,displayPanel));
         listButton.setBounds(10,140,180,40);
         JButton filterButton = new JButton(new FilterSongsAction(state,displayPanel));
         filterButton.setBounds(10,190,180,40);
@@ -68,10 +71,18 @@ public class SongOrganizerAppUI extends JFrame {
         unfavButton.setBounds(10,290,180,40);
         JButton saveButton = new JButton(new SaveAction(state,jsonWriter,JSON_STORE));
         saveButton.setBounds(10,340,180,40);
-        JButton loadButton = new JButton(new LoadAction(state,jsonReader,JSON_STORE,this,displayPanel));
+        JButton loadButton = new JButton(new LoadAction(state,jsonReader,JSON_STORE,displayPanel));
         loadButton.setBounds(10,390,180,40);
 
-        menuPanel.add(menuLabel);
+        addButtons(addButton,deleteButton,listButton,filterButton,favButton,unfavButton,saveButton,loadButton,
+                menuPanel);
+    }
+
+    //EFFECTS: adds the created buttons to the menuPanel
+    private void addButtons(JButton addButton, JButton deleteButton, JButton listButton, JButton filterButton,
+                            JButton favButton, JButton unfavButton, JButton saveButton, JButton loadButton,
+                            JPanel menuPanel) {
+
         menuPanel.add(addButton);
         menuPanel.add(deleteButton);
         menuPanel.add(listButton);
@@ -80,17 +91,16 @@ public class SongOrganizerAppUI extends JFrame {
         menuPanel.add(unfavButton);
         menuPanel.add(saveButton);
         menuPanel.add(loadButton);
-        add(displayPanel);
-        add(menuPanel);
     }
 
-    //EFFECTS: initial displayPanel for displaying relevant output to the user
+    //EFFECTS: initializes the displayPanel for displaying relevant output to the user
     private JPanel initializePanel() {
         JPanel displayPanel = new JPanel();
         displayPanel.setLayout(new BorderLayout());
-        displayPanel.setBounds(201,0,800, 800);
-        displayPanel.setBackground(Color.GREEN);
+        displayPanel.setBounds(201,0,800, FRAME_HEIGHT);
+        displayPanel.setBackground(FRAME_COLOR);
         return displayPanel;
+
     }
 
 }
