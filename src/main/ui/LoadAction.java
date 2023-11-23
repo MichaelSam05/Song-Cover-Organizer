@@ -8,31 +8,28 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
 
+//represents what happens when the user clicks the load button
 public class LoadAction extends AbstractAction {
 
-    private SongDatabase sd;
     private JsonReader jsonReader;
-
     private String location;
-
-    private JFrame frame;
-    private JPanel panel;
     private SongDatabaseState state;
+    private JPanel panel;
 
 
-    public LoadAction(/*SongDatabase sd*/SongDatabaseState state, JsonReader jsonReader, String location,
+    //EFFECTS: construct the load button
+    public LoadAction(SongDatabaseState state, JsonReader jsonReader, String location,
                                          JPanel panel) {
         super("Load Data");
-        this.sd = sd;
         this.jsonReader = jsonReader;
         this.location = location;
-        this.frame = frame;
         this.panel = panel;
         this.state = state;
     }
 
-
-
+    //MODIFIES: this
+    //EFFECTS: reads the previously saved data into the song database and displays the appropriate message depending on
+    //if it was successful
     @Override
     public void actionPerformed(ActionEvent e) {
         try {

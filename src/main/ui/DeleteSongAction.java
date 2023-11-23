@@ -11,6 +11,7 @@ import java.util.List;
 public class DeleteSongAction extends AbstractAction {
     private SongDatabaseState state;
 
+    //EFFECTS: constructs the delete song button
     public DeleteSongAction(SongDatabaseState state) {
         super("Delete Song");
         this.state = state;

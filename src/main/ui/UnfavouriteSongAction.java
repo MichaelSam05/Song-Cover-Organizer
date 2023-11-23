@@ -7,17 +7,21 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+//represents the unfavourite button for the user to unfavourite a song
 public class UnfavouriteSongAction extends AbstractAction {
 
     private SongDatabase sd;
     private SongDatabaseState state;
 
-    public UnfavouriteSongAction(/*SongDatabase sd*/SongDatabaseState state) {
+    //EFFECTS: constructs the unfavourite song button
+    public UnfavouriteSongAction(SongDatabaseState state) {
         super("Unfavourite Button");
         this.sd = sd;
         this.state = state;
     }
 
+    //MODIFIES: this
+    //EFFECTS: unfavaourites the song specified by the user given that the song was found in the song database
     @Override
     public void actionPerformed(ActionEvent e) {
         List<Song> songs = state.sd.getSongs();

@@ -1,20 +1,13 @@
 package ui;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.image.ImageObserver;
-import java.time.Month;
 
 import model.Song;
-import model.SongDatabase;
-import ui.SongOrganizerAppUI;
 
 import static java.lang.Integer.parseInt;
 
 import model.exceptions.DateFormatException;
-import model.exceptions.MonthOutOfRangeException;
 import model.exceptions.NegativeYearException;
 
 //Represents the add song button as well as the action that occurs when clicked
@@ -23,7 +16,7 @@ public class AddSongAction extends AbstractAction {
 
 
     //EFFECTS: constructs the add song button
-    public AddSongAction(/*SongDatabase sd*/SongDatabaseState state) {
+    public AddSongAction(SongDatabaseState state) {
         super("Add New Song");
         this.state = state;
     }
@@ -54,6 +47,7 @@ public class AddSongAction extends AbstractAction {
         state.sd.addSong(song);
     }
 
+    //EFFECTS: returns the number of views for a particular video from the user
     private int getValidViews() {
         boolean valid = false;
         int views = 0;
@@ -71,6 +65,7 @@ public class AddSongAction extends AbstractAction {
         return views;
     }
 
+    //EFFECTS: returns the number of likes for a particular video from the user
     private int getValidLikes() {
         boolean valid = false;
         int likes = 0;
@@ -88,6 +83,7 @@ public class AddSongAction extends AbstractAction {
         return likes;
     }
 
+    //EFFECTS: returns the number of dislikes for a particular video from the user
     private int getValidDislikes() {
         boolean valid = false;
         int dislikes = 0;
@@ -105,33 +101,33 @@ public class AddSongAction extends AbstractAction {
         return dislikes;
     }
 
+    //EFFECTS: returns the formatted date based on user input
     private String getFormatedDate() {
         boolean valid = false;
-        int month = 0;
         int year = 0;
+        String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
+
+        Object m = JOptionPane.showInputDialog(null,
+                "Select Upload Month", "Add New Song", JOptionPane.PLAIN_MESSAGE,null,months,months[0]);
         do {
             try {
-                month = parseInt(JOptionPane.showInputDialog(null,
-                        "Please Enter Upload Month (mm)", "Add New Song", JOptionPane.PLAIN_MESSAGE));
                 year = parseInt(JOptionPane.showInputDialog(null,
                         "Please Enter Upload Year (yyyy)", "Add New Song", JOptionPane.PLAIN_MESSAGE));
 
-                valid = isValid(month,year);
+                valid = isValid(year);
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Month and Year Must Be Integers",
                         "Error", JOptionPane.ERROR_MESSAGE);
             }
         } while (valid == false);
-        return Integer.toString(month) + "/" + Integer.toString(year);
+        return m.toString() + "/" + Integer.toString(year);
     }
 
-    private boolean isValid(int month, int year) {
+    //EFFECTS: determines if the year the user has inputted is valid
+    private boolean isValid(int year) {
         boolean valid = false;
         try {
-            valid = validDate(month, year);
-        } catch (MonthOutOfRangeException mor) {
-            JOptionPane.showMessageDialog(null, mor.getMessage(),
-                    "Error", JOptionPane.ERROR_MESSAGE);
+            valid = validDate(year);
         } catch (NegativeYearException nde) {
             JOptionPane.showMessageDialog(null, nde.getMessage(),
                     "Error", JOptionPane.ERROR_MESSAGE);
@@ -143,20 +139,16 @@ public class AddSongAction extends AbstractAction {
     }
 
     //THROWS:
-    //- MonthOutOfRangeException: if the month entered does not exist, that is, not >= 01 && <= 12
     //- NegativeYearException: if the year entered is negative
-    //- DateFormatException: if either the month does not contain more than 2 digits (mm) or the year does
-    //  not contain 4 digits (yyyy)
+    //- DateFormatException: if the year entered does not contain 4 digits (yyyy)
     //EFFECTS: returns true if a valid date, that is, obeys the required format
     // else throw the relevant exception
-    public boolean validDate(int month, int year) throws MonthOutOfRangeException, NegativeYearException,
+    public boolean validDate(int year) throws NegativeYearException,
             DateFormatException {
         if (year < 0) {
             throw new NegativeYearException("The year entered cannot be negative");
-        } else if (String.valueOf(year).length() != 4 || String.valueOf(month).length() > 2) {
-            throw new DateFormatException("Your date is not the right format");
-        } else if (month < 1 || month > 12) {
-            throw new MonthOutOfRangeException("The month entered must be between 01-12");
+        } else if (String.valueOf(year).length() != 4) {
+            throw new DateFormatException("The year must be of the form (yyyy)");
         } else {
             return true;
         }

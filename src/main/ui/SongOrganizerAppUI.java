@@ -15,7 +15,7 @@ public class SongOrganizerAppUI extends JFrame {
 
     private final static int FRAME_HEIGHT = 700;
 
-    private final static Color FRAME_COLOR = Color.CYAN;
+    private final static Color FRAME_COLOR = Color.darkGray;
 
     private JsonWriter jsonWriter;
 
@@ -45,6 +45,7 @@ public class SongOrganizerAppUI extends JFrame {
         menuPanel.setBackground(FRAME_COLOR);
         menuPanel.setBounds(0, 0, 200, FRAME_HEIGHT);
         JLabel menuLabel = new JLabel("MAIN MENU");
+        menuLabel.setForeground(Color.WHITE);
         menuLabel.setBounds(10,10,190,40);
         menuPanel.add(menuLabel);
 
@@ -55,6 +56,7 @@ public class SongOrganizerAppUI extends JFrame {
         add(menuPanel);
     }
 
+    //MODIFIES: this, menuPanel, displayPanel
     //EFFECTS: creates the button options available to the user
     private void createButtons(JPanel menuPanel, JPanel displayPanel) {
         JButton addButton = new JButton(new AddSongAction(state));
@@ -78,6 +80,7 @@ public class SongOrganizerAppUI extends JFrame {
                 menuPanel);
     }
 
+    //MODIFIES: menuPanel
     //EFFECTS: adds the created buttons to the menuPanel
     private void addButtons(JButton addButton, JButton deleteButton, JButton listButton, JButton filterButton,
                             JButton favButton, JButton unfavButton, JButton saveButton, JButton loadButton,

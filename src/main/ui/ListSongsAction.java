@@ -18,42 +18,31 @@ import java.util.List;
 //represents what happens when the user wants to view a list of all their songs
 public class ListSongsAction extends AbstractAction {
 
-   // private SongDatabase sd;
-    private JFrame window;
-
-    private JFrame frame;
-
     private JPanel tablePanel;
-
     private static final int NUM_COLS = 8;
-    private LoadAction load;
     private SongDatabaseState state;
 
-//    private static final String FAV_IMG = "./data/favourited.png";
-//
-//    private static final String UNFAV_IMG = "./data/unfavourited.png";
-
-
+    //EFFECTS: constructs the list songs button
     public ListSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel) {
         super("List All Songs");
-        //this.sd = sd;
-        this.frame = frame;
         this.tablePanel = tablePanel;
         this.state = state;
     }
 
 
+    //MODIFIES: this
+    //EFFECTS: when this button is pressed a JTable is placed on the display JPanel to show the list of songs to the
+    //user
     @Override
     public void actionPerformed(ActionEvent e) {
         List<Song> songs = state.sd.getSongs();
         if (songs == null) {
-//            tablePanel.removeAll();
-//            tablePanel.revalidate();
-//            tablePanel.repaint();
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
+            tablePanel.removeAll();
+            tablePanel.revalidate();
+            tablePanel.repaint();
         } else {
-            //initializeWindow();
             String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
                     "Favorite"};
             Object[][] data = getData(songs);
@@ -61,19 +50,11 @@ public class ListSongsAction extends AbstractAction {
             DefaultTableModel model = new DefaultTableModel(data, colNames);
             JTable songTable = new JTable(model);
             songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
-            //songTable.getColumnModel().getColumn(7).setCellEditor(new FavouriteEditior());
-            songTable.setRowHeight(50);
+            songTable.setRowHeight(25);
             JScrollPane songPane = new JScrollPane(songTable);
             tablePanel.add(songPane);
             tablePanel.revalidate();
             tablePanel.repaint();
-//            window.add(songPane);
-//        tablePanel.add(songPane);
-//        mainFrame = frame.getContentPane();
-//        mainFrame.add(tablePanel);
-//        mainFrame.revalidate();
-//        mainFrame.repaint();
-//        songPane.setVisible(true);
         }
 
     }
@@ -93,26 +74,6 @@ public class ListSongsAction extends AbstractAction {
             data[i][6] = songs.get(i).getDate();
             data[i][7] = songs.get(i).getFavourite();
         }
-
         return data;
     }
-
-
-    //EFFECTS: creates a new panel for displaying the table
-    private void initializeWindow() {
-//        window = new JFrame();
-//        window.setSize(500,500);
-//        window.setVisible(true);
-
-        tablePanel = new JPanel();
-        tablePanel.setLayout(new FlowLayout());
-        tablePanel.setBounds(201, 0, 800, 800);
-        tablePanel.setBackground(Color.GREEN);
-//        cp = frame.getContentPane();
-//        cp.add(tablePanel);
-//        cp.revalidate();
-//        cp.setVisible(true);
-    }
-
-
 }
