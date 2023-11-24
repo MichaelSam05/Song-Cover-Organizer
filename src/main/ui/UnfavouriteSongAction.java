@@ -10,13 +10,11 @@ import java.util.List;
 //represents the unfavourite button for the user to unfavourite a song
 public class UnfavouriteSongAction extends AbstractAction {
 
-    private SongDatabase sd;
     private SongDatabaseState state;
 
     //EFFECTS: constructs the unfavourite song button
     public UnfavouriteSongAction(SongDatabaseState state) {
-        super("Unfavourite Button");
-        this.sd = sd;
+        super("Unfavourite A Song");
         this.state = state;
     }
 

@@ -29,6 +29,17 @@ for musicians of all kinds.
 - I want to be able to **save** any changes I make while using the application
 - I want to be able to **load** these changes when I reopen the application
 
+## Instructions For Grader
+- You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking the **Add New Song button** where you will be prompted to input the relevant fields one after the other.
+- You can generate the second required action by related to "displaying a list of added Xs to Y" by clicking the **List Songs button**.
+- You can generate the third action by clicking the **Filter Songs button** which will prompt you to input the name of an instrument and filter the list of Xs that have that instrument.(You can click the **List All Songs button** to view the **Instrument field** to know what instruments exist in the list).
+- You can generate the fourth action by clicking the **Delete Song button** which will prompt you to input a song to delete based on song name. (You can click the **List All Songs button** and viewing the **Song Name** field to see what songs can be deleted).
+- You can generate the fifth action by clicking the **Favourtie A Song button** which will prompt you to input a song to favourite based on song name. Clicking the **List All Songs button** will allow you to see this update.
+- You can generate the sixth action by clicking the **Unfavourtie A Song button** which will prompt you to input a song to unfavourite based on song name. Clicking the **List All Songs button** will allow you to see this update.
+- You can locate my visual component by clicking the **List All Songs button** and viewing the **Favourite** field: If a song is favourited, a "<img src="./data/favourited.png" height="15" width="15">" icon is seen else "<img src="./data/unfavourited.png" height="15" width="15">" icon is seen
+- You can save the state of my application by clicking the **Save Data button** then ok
+- You can reload the state of my application by clicking the **Load Data button** then ok however, do note that this will overwrite the current state of the application if any updates were made prior to clicking the load button
+
 
 
 
