@@ -1,4 +1,4 @@
-package model.exceptions;
+package ui.exceptions;
 
 public class MonthOutOfRangeException extends Exception {
     public MonthOutOfRangeException() {

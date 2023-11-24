@@ -11,9 +11,9 @@ import model.Song;
 import model.SongDatabase;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import model.exceptions.DateFormatException;
-import model.exceptions.MonthOutOfRangeException;
-import model.exceptions.NegativeYearException;
+import ui.exceptions.DateFormatException;
+import ui.exceptions.MonthOutOfRangeException;
+import ui.exceptions.NegativeYearException;
 
 import static java.lang.Integer.*;
 // Represents a song organizer application where the user is prompted to select a choice from the main menu and

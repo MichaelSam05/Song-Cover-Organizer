@@ -7,8 +7,8 @@ import model.Song;
 
 import static java.lang.Integer.parseInt;
 
-import model.exceptions.DateFormatException;
-import model.exceptions.NegativeYearException;
+import ui.exceptions.DateFormatException;
+import ui.exceptions.NegativeYearException;
 
 //Represents the add song button as well as the action that occurs when clicked
 public class AddSongAction extends AbstractAction {
