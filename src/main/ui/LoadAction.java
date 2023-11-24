@@ -1,8 +1,6 @@
 package ui;
 
-import model.SongDatabase;
 import persistence.JsonReader;
-import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

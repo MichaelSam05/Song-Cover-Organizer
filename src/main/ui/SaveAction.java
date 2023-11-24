@@ -1,6 +1,5 @@
 package ui;
 
-import model.SongDatabase;
 import persistence.JsonWriter;
 
 import javax.swing.*;

@@ -5,6 +5,7 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 
 //Represents the GUI for this application that the user interacts with
 public class SongOrganizerAppUI extends JFrame {
@@ -24,7 +25,7 @@ public class SongOrganizerAppUI extends JFrame {
 
 
     //EFFECTS: constructs the application GUI to be displayed to the user
-    public SongOrganizerAppUI() {
+    public SongOrganizerAppUI() throws FileNotFoundException {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
         state = new SongDatabaseState();

@@ -1,7 +1,6 @@
 package ui;
 
 import model.Song;
-import model.SongDatabase;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

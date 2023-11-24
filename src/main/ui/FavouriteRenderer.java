@@ -19,7 +19,6 @@ public class FavouriteRenderer extends DefaultTableCellRenderer {
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                    int row, int column) {
-        //Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         ImageIcon favourite = new ImageIcon(
                 new ImageIcon(FAV_IMG).getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         ImageIcon unfavourite = new ImageIcon(
