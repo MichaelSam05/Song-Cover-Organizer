@@ -108,7 +108,8 @@ public class AddSongAction extends AbstractAction {
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
 
         Object m = JOptionPane.showInputDialog(null,
-                "Select Upload Month", "Add New Song", JOptionPane.PLAIN_MESSAGE,null,months,months[0]);
+                "Select Upload Month", "Add New Song", JOptionPane.PLAIN_MESSAGE,null,months,
+                months[0]);
         do {
             try {
                 year = parseInt(JOptionPane.showInputDialog(null,

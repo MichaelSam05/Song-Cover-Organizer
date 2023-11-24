@@ -14,16 +14,13 @@ public class LoadAction extends AbstractAction {
     private JsonReader jsonReader;
     private String location;
     private SongDatabaseState state;
-    private JPanel panel;
 
 
     //EFFECTS: construct the load button
-    public LoadAction(SongDatabaseState state, JsonReader jsonReader, String location,
-                                         JPanel panel) {
+    public LoadAction(SongDatabaseState state, JsonReader jsonReader, String location) {
         super("Load Data");
         this.jsonReader = jsonReader;
         this.location = location;
-        this.panel = panel;
         this.state = state;
     }
 

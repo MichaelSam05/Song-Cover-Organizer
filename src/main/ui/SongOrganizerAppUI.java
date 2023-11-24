@@ -11,11 +11,11 @@ public class SongOrganizerAppUI extends JFrame {
 
     private SongDatabaseState state;
 
-    private final static int FRAME_WIDTH = 1000;
+    private static final  int FRAME_WIDTH = 1000;
 
-    private final static int FRAME_HEIGHT = 700;
+    private static final  int FRAME_HEIGHT = 700;
 
-    private final static Color FRAME_COLOR = Color.darkGray;
+    private static final  Color FRAME_COLOR = Color.darkGray;
 
     private JsonWriter jsonWriter;
 
@@ -73,7 +73,7 @@ public class SongOrganizerAppUI extends JFrame {
         unfavButton.setBounds(10,290,180,40);
         JButton saveButton = new JButton(new SaveAction(state,jsonWriter,JSON_STORE));
         saveButton.setBounds(10,340,180,40);
-        JButton loadButton = new JButton(new LoadAction(state,jsonReader,JSON_STORE,displayPanel));
+        JButton loadButton = new JButton(new LoadAction(state,jsonReader,JSON_STORE));
         loadButton.setBounds(10,390,180,40);
 
         addButtons(addButton,deleteButton,listButton,filterButton,favButton,unfavButton,saveButton,loadButton,
