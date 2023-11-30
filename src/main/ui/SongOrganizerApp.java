@@ -3,9 +3,12 @@ package ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import model.Event;
+import model.EventLog;
 import model.Song;
 import model.SongDatabase;
 import persistence.JsonReader;
@@ -28,6 +31,7 @@ public class SongOrganizerApp {
     private JsonWriter jsonWriter;
 
     private JsonReader jsonReader;
+
 
 
     //EFFECTS: constructs a song database for the user and runs the app
@@ -56,6 +60,11 @@ public class SongOrganizerApp {
                 saveQuit();
                 keepGoing = false;
                 System.out.println("Terminating...");
+                //Iterator<Event> events = EventLog.getInstance().iterator();
+
+                for (Event next : EventLog.getInstance()) {
+                    System.out.println(next.getDescription());
+                }
             } else {
                 handleInput(choice);
             }
@@ -105,6 +114,7 @@ public class SongOrganizerApp {
         System.out.println("search -> Search For A Song");
         System.out.println("calc -> Calculate Averages");
         System.out.println("filter -> Filter Songs By Instrument");
+        System.out.println("sort -> Sort Song");
         System.out.println("fav -> Favourite A Song");
         System.out.println("unfav -> Unfavourite A Song");
         System.out.println("save -> Save Data");
@@ -136,10 +146,17 @@ public class SongOrganizerApp {
             doSaveData();
         } else if (choice.equals("load")) {
             doLoadData();
+        } else if (choice.equals("sort")) {
+            doSortSongs();
         } else {
             System.out.println("Invalid Choice");
         }
+    }
 
+    //MODIFIES: this
+    //EFFECTS: sorts the song databased in descending order
+    private void doSortSongs() {
+        songDatabase.sortSongs();
     }
 
     //MODIFIES: this

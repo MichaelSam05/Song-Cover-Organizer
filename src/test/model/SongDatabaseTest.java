@@ -14,6 +14,8 @@ public class SongDatabaseTest {
     private Song s2;
     private Song s3;
 
+    private Song s4;
+
     private SongDatabase songDatabaseTest;
 
     @BeforeEach
@@ -24,6 +26,9 @@ public class SongDatabaseTest {
                 1935946, 85182,392,false);
         s3 = new Song("Lovely", "Billie Eilish", "Violin","02/2019",
                 23134836,761003,3885,false);
+
+        s4 = new Song("Name", "Artist","Instrument","11/2000",394998,100,
+                200,false);
 
         songDatabaseTest = new SongDatabase("Test");
     }
@@ -182,5 +187,47 @@ public class SongDatabaseTest {
         assertTrue(s1.getFavourite());
         songDatabaseTest.unFavouriteSong(s1);
         assertFalse(s1.getFavourite());
+    }
+
+    //test the sortSongs method where the list of songs is unsorted
+    @Test
+    public void sortSongsUnsortedTest(){
+        songDatabaseTest.addSong(s1);
+        songDatabaseTest.addSong(s2);
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertEquals(s1,songs.get(0));
+        assertEquals(s2,songs.get(1));
+        songDatabaseTest.sortSongs();
+        List<Song> sortedSongs = songDatabaseTest.getSongs();
+        assertEquals(s2,sortedSongs.get(0));
+        assertEquals(s1,sortedSongs.get(1));
+    }
+
+    //test the sortSongs method where the list of songs is already sorted
+    @Test
+    public void sortSongsSortedTest() {
+        songDatabaseTest.addSong(s2);
+        songDatabaseTest.addSong(s1);
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertEquals(s2,songs.get(0));
+        assertEquals(s1,songs.get(1));
+        songDatabaseTest.sortSongs();
+        List<Song> sortedSongs = songDatabaseTest.getSongs();
+        assertEquals(s2,sortedSongs.get(0));
+        assertEquals(s1,sortedSongs.get(1));
+    }
+
+    //test the sortSongs method for the case where both songs have the same number of views
+    @Test
+    public void sortSongsSameViewsTest() {
+        songDatabaseTest.addSong(s1);
+        songDatabaseTest.addSong(s4);
+        List<Song> songs = songDatabaseTest.getSongs();
+        assertEquals(s1,songs.get(0));
+        assertEquals(s4,songs.get(1));
+        songDatabaseTest.sortSongs();
+        List<Song> sortedSongs = songDatabaseTest.getSongs();
+        assertEquals(s1,sortedSongs.get(0));
+        assertEquals(s4,sortedSongs.get(1));
     }
 }

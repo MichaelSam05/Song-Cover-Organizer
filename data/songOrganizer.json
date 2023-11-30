@@ -1,25 +1,13 @@
 {
-    "Songs": [
-        {
-            "Dislikes": 12,
-            "Views": 21,
-            "IsFavourite": true,
-            "Instrument": "Guitar",
-            "Song Name": "Song1",
-            "Likes": 21,
-            "Artist Name": "Art1",
-            "Date": "12/2112"
-        },
-        {
-            "Dislikes": 21,
-            "Views": 12,
-            "IsFavourite": false,
-            "Instrument": "Piano",
-            "Song Name": "Song3",
-            "Likes": 12,
-            "Artist Name": "Art3",
-            "Date": "8/2001"
-        }
-    ],
+    "Songs": [{
+        "Dislikes": 12,
+        "Views": 21,
+        "IsFavourite": false,
+        "Instrument": "wa",
+        "Song Name": "aw",
+        "Likes": 21,
+        "Artist Name": "adwd",
+        "Date": "12/1221"
+    }],
     "Name": "My Song Database"
 }
