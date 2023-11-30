@@ -36,7 +36,7 @@ public class DeleteSongAction extends AbstractAction {
                 JOptionPane.showMessageDialog(null, "Cannot find " + songName
                                 + " in the song list", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                songs.remove(deleteSong);
+                state.sd.deleteSong(deleteSong);
                 JOptionPane.showMessageDialog(null,   songName
                         + " was successfully deleted", "Delete Song", JOptionPane.PLAIN_MESSAGE);
             }

@@ -64,7 +64,7 @@ public class SongDatabaseTest {
     public void deleteSongButEmptyTest() {
         List<Song> songs = songDatabaseTest.getSongs();
         assertNull(songs);
-        songDatabaseTest.deleteSong("Never Gonna Give You Up");
+        songDatabaseTest.deleteSong(s1);
         assertNull(songs);
     }
 
@@ -76,7 +76,7 @@ public class SongDatabaseTest {
         songDatabaseTest.addSong(s3);
         List<Song> songs = songDatabaseTest.getSongs();
         assertTrue(songs.contains(s2));
-        songDatabaseTest.deleteSong(s2.getSongName());
+        songDatabaseTest.deleteSong(s2);
         assertFalse(songs.contains(s2));
     }
 

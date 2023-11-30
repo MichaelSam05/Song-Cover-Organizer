@@ -60,8 +60,6 @@ public class SongOrganizerApp {
                 saveQuit();
                 keepGoing = false;
                 System.out.println("Terminating...");
-                //Iterator<Event> events = EventLog.getInstance().iterator();
-
                 for (Event next : EventLog.getInstance()) {
                     System.out.println(next.getDescription());
                 }
@@ -260,14 +258,14 @@ public class SongOrganizerApp {
         } else {
             System.out.println("Enter song name you want to delete");
             songName = input.nextLine().toLowerCase();
-
-            if (songDatabase.searchSong(songName) == null) {
+            Song deleteSong = songDatabase.searchSong(songName);
+            if (deleteSong == null) {
                 System.out.println("Song does not exist");
             } else {
                 System.out.println("Are You Sure?");
                 choice = yesOrNoMenu();
                 if (choice.equals("y")) {
-                    songDatabase.deleteSong(songName);
+                    songDatabase.deleteSong(deleteSong);
                     System.out.println("Successful deletion");
                 } else {
                     System.out.println("Returning to main menu");

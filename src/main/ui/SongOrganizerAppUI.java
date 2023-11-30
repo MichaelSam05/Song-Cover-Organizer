@@ -1,14 +1,20 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
+import java.awt.event.WindowStateListener;
 import java.io.FileNotFoundException;
 
 //Represents the GUI for this application that the user interacts with
-public class SongOrganizerAppUI extends JFrame {
+public class SongOrganizerAppUI extends JFrame implements WindowListener {
 
     private SongDatabaseState state;
 
@@ -36,6 +42,7 @@ public class SongOrganizerAppUI extends JFrame {
         setResizable(false);
         constructGUI();
         setVisible(true);
+        addWindowListener(this);
     }
 
     //MODIFIES: this
@@ -107,5 +114,44 @@ public class SongOrganizerAppUI extends JFrame {
 
     }
 
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+        System.out.println("Events Logged...");
+        for (Event next : EventLog.getInstance()) {
+            System.out.println(next.getDate());
+            System.out.println(next.getDescription());
+        }
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+    }
+
+
 }
+
+
 

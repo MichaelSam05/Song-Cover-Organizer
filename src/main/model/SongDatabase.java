@@ -31,12 +31,12 @@ public class SongDatabase implements Writable {
 
     //MODIFIES: this
     //EFFECTS: removes a song from the list of songs
-    public void deleteSong(String song) {
-        Song result = searchSong(song);
-        if (!(result == null)) {
-            EventLog.getInstance().logEvent(new Event("Deleted Song Named:" + song));
-            songs.remove(result);
-        }
+    public void deleteSong(Song song) {
+        //Song result = searchSong(song);
+        //if (!(result == null)) {
+        EventLog.getInstance().logEvent(new Event("Deleted Song:" + song));
+        songs.remove(song);
+       // }
     }
 
     //EFFECTS: Locates a song based on the name of the song and returns that song if found
@@ -55,10 +55,8 @@ public class SongDatabase implements Writable {
     //EFFECTS: return the list of songs
     public List<Song> getSongs() {
         if (songs.isEmpty()) {
-            EventLog.getInstance().logEvent(new Event("The List Has No Songs To Get"));
             return null;
         } else {
-            EventLog.getInstance().logEvent(new Event("The List Has Songs To Get"));
             return songs;
         }
     }
@@ -115,10 +113,11 @@ public class SongDatabase implements Writable {
         List<Song> filterSong = new ArrayList<>();
         for (Song next : songs) {
             if (next.getInstrument().equals(instrument)) {
-                EventLog.getInstance().logEvent(new Event(next + " Was Added To Filtered List"));
                 filterSong.add(next);
             }
         }
+        EventLog.getInstance().logEvent(new Event("The Song Database Was Filtered Using Instrument: "
+                + instrument));
         return filterSong;
     }
 
