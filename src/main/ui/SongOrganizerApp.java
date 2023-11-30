@@ -142,7 +142,15 @@ public class SongOrganizerApp {
             doFavoriteSong();
         } else if (choice.equals("unfav")) {
             doUnFavoriteSong();
-        } else if (choice.equals("save")) {
+        } else {
+            handleRestOfInput(choice);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: calls the rest of the appropriate methods based on the user's choice
+    private void handleRestOfInput(String choice) {
+        if (choice.equals("save")) {
             doSaveData();
         } else if (choice.equals("load")) {
             doLoadData();
@@ -157,6 +165,7 @@ public class SongOrganizerApp {
     //EFFECTS: sorts the song databased in descending order
     private void doSortSongs() {
         songDatabase.sortSongs();
+        System.out.println("Sorting complete please select 'list' option to view...");
     }
 
     //MODIFIES: this
