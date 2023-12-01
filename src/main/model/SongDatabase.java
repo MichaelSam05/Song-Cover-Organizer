@@ -32,11 +32,8 @@ public class SongDatabase implements Writable {
     //MODIFIES: this
     //EFFECTS: removes a song from the list of songs
     public void deleteSong(Song song) {
-        //Song result = searchSong(song);
-        //if (!(result == null)) {
         EventLog.getInstance().logEvent(new Event("Deleted Song:" + song));
         songs.remove(song);
-       // }
     }
 
     //EFFECTS: Locates a song based on the name of the song and returns that song if found

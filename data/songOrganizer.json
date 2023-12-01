@@ -1,24 +1,24 @@
 {
     "Songs": [
         {
-            "Dislikes": 100,
-            "Views": 100,
+            "Dislikes": 1,
+            "Views": 1,
             "IsFavourite": false,
             "Instrument": "Guitar",
             "Song Name": "Song1",
-            "Likes": 100,
-            "Artist Name": "Artist1",
-            "Date": "01/2000"
+            "Likes": 1,
+            "Artist Name": "Art1",
+            "Date": "04/2022"
         },
         {
-            "Dislikes": 100,
-            "Views": 100,
+            "Dislikes": 2,
+            "Views": 2,
             "IsFavourite": false,
             "Instrument": "Piano",
-            "Song Name": "Song3",
-            "Likes": 100,
-            "Artist Name": "Art3",
-            "Date": "01/2022"
+            "Song Name": "Song2",
+            "Likes": 2,
+            "Artist Name": "Art2",
+            "Date": "01/2023"
         }
     ],
     "Name": "My SongDatabase"
