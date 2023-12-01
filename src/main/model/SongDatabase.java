@@ -44,11 +44,9 @@ public class SongDatabase implements Writable {
     public Song searchSong(String song) {
         for (Song next : songs) {
             if (next.getSongName().equals(song)) {
-                EventLog.getInstance().logEvent(new Event("Song Named: " + song + "Was Found"));
                 return next;
             }
         }
-        EventLog.getInstance().logEvent(new Event("Song Named: " + song + "Was Not Found"));
         return null;
     }
 
@@ -114,6 +112,8 @@ public class SongDatabase implements Writable {
         for (Song next : songs) {
             if (next.getInstrument().equals(instrument)) {
                 filterSong.add(next);
+                EventLog.getInstance().logEvent(
+                        new Event("Song: " + next + " was added to the filtered list"));
             }
         }
         EventLog.getInstance().logEvent(new Event("The Song Database Was Filtered Using Instrument: "
@@ -125,21 +125,21 @@ public class SongDatabase implements Writable {
     //EFFECTS: return the sorted list of songs in descending order based on the number of views
     public List<Song> sortSongs() {
         songs.sort(new ViewsComparator());
-        EventLog.getInstance().logEvent(new Event("All Songs Were Sorted"));
+        //EventLog.getInstance().logEvent(new Event("All Songs Were Sorted"));
         return songs;
     }
 
     //MODIFIES: song
     //EFFECTS: favourates the song specified by the user
     public void favouriteSong(Song song) {
-        EventLog.getInstance().logEvent(new Event("Favouriting Song Named" + song));
+        EventLog.getInstance().logEvent(new Event("Favouritied Song: " + song));
         song.setFavourite();
     }
 
     //MODIFIES: song
     //EFFECTS: unfavourates the song specified by the user
     public void unFavouriteSong(Song song) {
-        EventLog.getInstance().logEvent(new Event("Unfavouriting Song Named" + song));
+        EventLog.getInstance().logEvent(new Event("Unfavourited Song: " + song));
         song.resetFavourite();
     }
 

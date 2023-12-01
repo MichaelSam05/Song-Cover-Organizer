@@ -63,12 +63,12 @@ public class Song implements Writable {
 
     public void setFavourite() {
         this.isFavourite = true;
-        EventLog.getInstance().logEvent(new Event("Song Favourited"));
+        //EventLog.getInstance().logEvent(new Event("Song Favourited"));
     }
 
     public void resetFavourite() {
         this.isFavourite = false;
-        EventLog.getInstance().logEvent(new Event("Song Unfavourited"));
+        //EventLog.getInstance().logEvent(new Event("Song Unfavourited"));
     }
 
     //EFFECTS: converts a song into a JSONObject and returns it

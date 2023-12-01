@@ -36,7 +36,7 @@ public class UnfavouriteSongAction extends AbstractAction {
                 JOptionPane.showMessageDialog(null, "Cannot find " + songName
                         + " in the song list", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                favSong.resetFavourite();
+                state.sd.unFavouriteSong(favSong);
                 JOptionPane.showMessageDialog(null,   songName
                         + " was successfully favourited", "Unfavourite A Song", JOptionPane.PLAIN_MESSAGE);
             }

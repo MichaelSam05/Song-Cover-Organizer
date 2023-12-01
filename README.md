@@ -40,8 +40,46 @@ for musicians of all kinds.
 - You can save the state of my application by clicking the **Save Data button** then ok
 - You can reload the state of my application by clicking the **Load Data button** then ok however, do note that this will overwrite the current state of the application if any updates were made prior to clicking the load button
 
+## "Phase 4: Task 2"
+Events Logged...
 
+Thu Nov 30 15:11:50 PST 2023\
+Added Song:model.Song@5120745b
 
+Thu Nov 30 15:12:06 PST 2023\
+Added Song:model.Song@2a6150f0
+
+Thu Nov 30 15:12:22 PST 2023\
+Added Song:model.Song@37b5d090
+
+Thu Nov 30 15:12:34 PST 2023\
+Favouritied Song: model.Song@2a6150f0
+
+Thu Nov 30 15:12:51 PST 2023\
+Song: model.Song@5120745b was added to the filtered list
+
+Thu Nov 30 15:12:51 PST 2023\
+Song: model.Song@37b5d090 was added to the filtered list
+
+Thu Nov 30 15:12:51 PST 2023\
+The Song Database Was Filtered Using Instrument: Guitar
+
+Thu Nov 30 15:13:01 PST 2023\
+Unfavourited Song: model.Song@2a6150f0
+
+Thu Nov 30 15:13:07 PST 2023\
+Deleted Song:model.Song@2a6150f0
+
+## "Phase 4: Task 3".
+
+Reflecting on my UML diagram for this application, I noticed the class called "SongDatabaseState" has numerous dependency arrows going towards it. 
+My intention with this class was to allow my entire GUI to have access to the current state of the "SongDatabase" class so that any updates made by the user can be known throughout 
+the "ui" package as numerous classes need to know its current state to run effectively. After learning about the "Singleton" class concept from the "Design" module of this course,
+I would refactor the "SongDatabaseState" class into a singleton class so that each of my "-Action" classes can get the current state of the "SongDatabase" class; namely using the "getInstance()" method.
+This would remove all dependency arrows going into the "SongDatabaseState" class. 
+
+Another fix that I could have done was remove the "SongDatabaseState" class entirely and implement the "Observer Pattern" namely between "LoadAction" (the subject) and "SongOrganizerAppUI" (the observer);
+the subject would notify the observer that previous data was loaded into the "SongDatabase" field in the LoadAction class by the user and that to update its current "SongDatabase" field to the new one in the "SongOrganiserUI" class. This would have reduced the number of dependencies in the original application.
 
 
 

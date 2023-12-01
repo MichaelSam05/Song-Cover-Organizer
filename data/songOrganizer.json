@@ -1,35 +1,25 @@
 {
     "Songs": [
         {
-            "Dislikes": 12,
-            "Views": 2112,
-            "IsFavourite": true,
-            "Instrument": "daw",
-            "Song Name": "adwadw",
-            "Likes": 12,
-            "Artist Name": "wda",
-            "Date": "12/2121"
-        },
-        {
-            "Dislikes": 1221,
-            "Views": 212121,
+            "Dislikes": 100,
+            "Views": 100,
             "IsFavourite": false,
-            "Instrument": "adwdwa",
+            "Instrument": "Guitar",
             "Song Name": "Song1",
-            "Likes": 2,
-            "Artist Name": "awd",
-            "Date": "04/2000"
+            "Likes": 100,
+            "Artist Name": "Artist1",
+            "Date": "01/2000"
         },
         {
-            "Dislikes": 12,
-            "Views": 212,
-            "IsFavourite": true,
-            "Instrument": "wad",
-            "Song Name": "Song10",
-            "Likes": 12,
-            "Artist Name": "adwdwa",
-            "Date": "01/1222"
+            "Dislikes": 100,
+            "Views": 100,
+            "IsFavourite": false,
+            "Instrument": "Piano",
+            "Song Name": "Song3",
+            "Likes": 100,
+            "Artist Name": "Art3",
+            "Date": "01/2022"
         }
     ],
-    "Name": "My Song Database"
+    "Name": "My SongDatabase"
 }
