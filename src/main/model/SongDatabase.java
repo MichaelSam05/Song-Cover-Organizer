@@ -113,8 +113,8 @@ public class SongDatabase implements Writable {
                         new Event("Song: " + next + " was added to the filtered list"));
             }
         }
-        EventLog.getInstance().logEvent(new Event("The Song Database Was Filtered Using Instrument: "
-                + instrument));
+        EventLog.getInstance().logEvent(new Event("Displayed Filtered Song List Based On: " + instrument + ":"
+                + filterSong));
         return filterSong;
     }
 

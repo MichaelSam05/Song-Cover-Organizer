@@ -43,32 +43,32 @@ for musicians of all kinds.
 ## "Phase 4: Task 2"
 Events Logged...
 
-Thu Nov 30 15:11:50 PST 2023\
-Added Song:model.Song@5120745b
+Fri Dec 01 11:56:42 PST 2023\
+Added Song:model.Song@7d794c91
 
-Thu Nov 30 15:12:06 PST 2023\
-Added Song:model.Song@2a6150f0
+Fri Dec 01 11:56:55 PST 2023\
+Added Song:model.Song@5bbd60f1
 
-Thu Nov 30 15:12:22 PST 2023\
-Added Song:model.Song@37b5d090
+Fri Dec 01 11:57:06 PST 2023\
+Added Song:model.Song@771986c8
 
-Thu Nov 30 15:12:34 PST 2023\
-Favouritied Song: model.Song@2a6150f0
+Fri Dec 01 11:57:16 PST 2023\
+Favouritied Song: model.Song@5bbd60f1
 
-Thu Nov 30 15:12:51 PST 2023\
-Song: model.Song@5120745b was added to the filtered list
+Fri Dec 01 11:57:22 PST 2023\
+Unfavourited Song: model.Song@5bbd60f1
 
-Thu Nov 30 15:12:51 PST 2023\
-Song: model.Song@37b5d090 was added to the filtered list
+Fri Dec 01 11:57:39 PST 2023\
+Song: model.Song@7d794c91 was added to the filtered list
 
-Thu Nov 30 15:12:51 PST 2023\
-The Song Database Was Filtered Using Instrument: Guitar
+Fri Dec 01 11:57:39 PST 2023\
+Song: model.Song@771986c8 was added to the filtered list
 
-Thu Nov 30 15:13:01 PST 2023\
-Unfavourited Song: model.Song@2a6150f0
+Fri Dec 01 11:57:39 PST 2023\
+Displayed Filtered Song List Based On: Guitar:[model.Song@7d794c91, model.Song@771986c8]
 
-Thu Nov 30 15:13:07 PST 2023\
-Deleted Song:model.Song@2a6150f0
+Fri Dec 01 11:57:44 PST 2023\
+Deleted Song:model.Song@5bbd60f1
 
 ## "Phase 4: Task 3".
 
