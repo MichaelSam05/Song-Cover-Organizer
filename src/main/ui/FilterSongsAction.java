@@ -41,7 +41,9 @@ public class FilterSongsAction extends AbstractAction {
             } else {
                 String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
                         "Favorite"};
-                Object[][] data = getData(filtered);
+                ListSongsAction listAction = new ListSongsAction();
+                Object[][] data = listAction.getData(filtered);
+
                 JTable songTable = new JTable(data, colNames);
                 songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
                 songTable.setRowHeight(50);
@@ -61,23 +63,5 @@ public class FilterSongsAction extends AbstractAction {
         tablePanel.repaint();
     }
 
-
-    //EFFECTS: stores all the songs in a 2D Object array
-    private Object[][] getData(List<Song> songs) {
-        Object[][] data = new Object[songs.size()][NUM_COLS];
-        int i;
-        for (i = 0; i < songs.size(); i++) {
-            data[i][0] = songs.get(i).getSongName();
-            data[i][1] = songs.get(i).getArtistName();
-            data[i][2] = songs.get(i).getInstrument();
-            data[i][3] = songs.get(i).getViews();
-            data[i][4] = songs.get(i).getLikes();
-            data[i][5] = songs.get(i).getDislikes();
-            data[i][6] = songs.get(i).getDate();
-            data[i][7] = songs.get(i).getFavourite();
-        }
-
-        return data;
-    }
 
 }

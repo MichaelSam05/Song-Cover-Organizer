@@ -83,21 +83,24 @@ public class SongOrganizerAppUI extends JFrame implements WindowListener {
         saveButton.setBounds(10,340,180,40);
         JButton loadButton = new JButton(new LoadAction(state,jsonReader,JSON_STORE));
         loadButton.setBounds(10,390,180,40);
+        JButton sortButton = new JButton((new SortAction(state,displayPanel)));
+        sortButton.setBounds(10,440,180,40);
 
-        addButtons(addButton,deleteButton,listButton,filterButton,favButton,unfavButton,saveButton,loadButton,
-                menuPanel);
+        addButtons(addButton,deleteButton,listButton,filterButton,favButton,unfavButton,saveButton,
+                loadButton,sortButton, menuPanel);
     }
 
     //MODIFIES: menuPanel
     //EFFECTS: adds the created buttons to the menuPanel
     private void addButtons(JButton addButton, JButton deleteButton, JButton listButton, JButton filterButton,
-                            JButton favButton, JButton unfavButton, JButton saveButton, JButton loadButton,
+                            JButton favButton, JButton unfavButton, JButton saveButton, JButton loadButton, JButton sortButton,
                             JPanel menuPanel) {
 
         menuPanel.add(addButton);
         menuPanel.add(deleteButton);
         menuPanel.add(listButton);
         menuPanel.add(filterButton);
+        menuPanel.add(sortButton);
         menuPanel.add(favButton);
         menuPanel.add(unfavButton);
         menuPanel.add(saveButton);

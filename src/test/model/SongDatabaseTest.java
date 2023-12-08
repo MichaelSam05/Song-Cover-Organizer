@@ -3,7 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -197,7 +196,7 @@ public class SongDatabaseTest {
         List<Song> songs = songDatabaseTest.getSongs();
         assertEquals(s1,songs.get(0));
         assertEquals(s2,songs.get(1));
-        songDatabaseTest.sortSongs();
+        songDatabaseTest.sortByViews();
         List<Song> sortedSongs = songDatabaseTest.getSongs();
         assertEquals(s2,sortedSongs.get(0));
         assertEquals(s1,sortedSongs.get(1));
@@ -211,7 +210,7 @@ public class SongDatabaseTest {
         List<Song> songs = songDatabaseTest.getSongs();
         assertEquals(s2,songs.get(0));
         assertEquals(s1,songs.get(1));
-        songDatabaseTest.sortSongs();
+        songDatabaseTest.sortByViews();
         List<Song> sortedSongs = songDatabaseTest.getSongs();
         assertEquals(s2,sortedSongs.get(0));
         assertEquals(s1,sortedSongs.get(1));
@@ -225,7 +224,7 @@ public class SongDatabaseTest {
         List<Song> songs = songDatabaseTest.getSongs();
         assertEquals(s1,songs.get(0));
         assertEquals(s4,songs.get(1));
-        songDatabaseTest.sortSongs();
+        songDatabaseTest.sortByViews();
         List<Song> sortedSongs = songDatabaseTest.getSongs();
         assertEquals(s1,sortedSongs.get(0));
         assertEquals(s4,sortedSongs.get(1));

@@ -15,8 +15,12 @@ public class ListSongsAction extends AbstractAction {
     private static final int NUM_COLS = 8;
     private SongDatabaseState state;
 
+    public ListSongsAction() {
+
+    }
+
     //EFFECTS: constructs the list songs button
-    public ListSongsAction(/*SongDatabase sd*/SongDatabaseState state, JPanel tablePanel) {
+    public ListSongsAction(SongDatabaseState state, JPanel tablePanel) {
         super("List All Songs");
         this.tablePanel = tablePanel;
         this.state = state;
@@ -54,7 +58,7 @@ public class ListSongsAction extends AbstractAction {
 
 
     //EFFECTS: gets all the songs stored in the database and puts them into a 2D Object Array
-    private Object[][] getData(List<Song> songs) {
+    public Object[][] getData(List<Song> songs) {
         Object[][] data = new Object[songs.size()][NUM_COLS];
         int i;
         for (i = 0; i < songs.size(); i++) {

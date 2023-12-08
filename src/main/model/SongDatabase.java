@@ -120,8 +120,24 @@ public class SongDatabase implements Writable {
 
     //MODIFIES: this
     //EFFECTS: return the sorted list of songs in descending order based on the number of views
-    public List<Song> sortSongs() {
+    public List<Song> sortByViews() {
         songs.sort(new ViewsComparator());
+        //EventLog.getInstance().logEvent(new Event("All Songs Were Sorted"));
+        return songs;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: return the sorted list of songs in descending order based on the number of likes
+    public List<Song> sortByLikes() {
+        songs.sort(new LikesComparator());
+        //EventLog.getInstance().logEvent(new Event("All Songs Were Sorted"));
+        return songs;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: return the sorted list of songs in descending order based on the number of likes
+    public List<Song> sortByDislikes() {
+        songs.sort(new DislikesComparator());
         //EventLog.getInstance().logEvent(new Event("All Songs Were Sorted"));
         return songs;
     }

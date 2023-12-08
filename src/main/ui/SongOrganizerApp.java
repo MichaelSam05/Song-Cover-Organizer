@@ -3,7 +3,6 @@ package ui;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -162,7 +161,7 @@ public class SongOrganizerApp {
     //MODIFIES: this
     //EFFECTS: sorts the song databased in descending order
     private void doSortSongs() {
-        songDatabase.sortSongs();
+        songDatabase.sortByViews();
         System.out.println("Sorting complete please select 'list' option to view...");
     }
 

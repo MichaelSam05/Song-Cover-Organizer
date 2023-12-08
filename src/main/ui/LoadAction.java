@@ -1,5 +1,6 @@
 package ui;
 
+import model.SongDatabase;
 import persistence.JsonReader;
 
 import javax.swing.*;
@@ -7,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 //represents what happens when the user clicks the load button
-public class LoadAction extends AbstractAction {
+public class LoadAction extends AbstractAction  {
 
     private JsonReader jsonReader;
     private String location;
