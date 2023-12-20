@@ -31,7 +31,6 @@ public class JsonReaderTest extends JsonTest {
             assertNull(videoDatabaseTest.getVideos());
         } catch (IOException e) {
             fail("Couldn't read from file");
-
         }
     }
 
