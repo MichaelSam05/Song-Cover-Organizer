@@ -1,7 +1,7 @@
 package persistence;
 
-import model.Song;
-import model.SongDatabase;
+import model.Video;
+import model.VideoDatabase;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -23,10 +23,10 @@ public class JsonReader {
 
     // EFFECTS: reads songDatabase from file and returns it;
     // throws IOException if an error occurs reading data from file
-    public SongDatabase read() throws IOException {
+    public VideoDatabase read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
-        return parseSongDatabase(jsonObject);
+        return parseVideoDatabase(jsonObject);
     }
 
     // EFFECTS: reads source file as string and returns it
@@ -41,37 +41,35 @@ public class JsonReader {
     }
 
     // EFFECTS: parses songDatabase from JSON object and returns it
-    private SongDatabase parseSongDatabase(JSONObject jsonObject) {
+    private VideoDatabase parseVideoDatabase(JSONObject jsonObject) {
         String name = jsonObject.getString("Name");
-        SongDatabase sd = new SongDatabase(name);
-        addSongs(sd, jsonObject);
-        return sd;
+        VideoDatabase vd = new VideoDatabase(name);
+        addVideos(vd, jsonObject);
+        return vd;
     }
 
     // MODIFIES: sd
     // EFFECTS: parses songs from JSON object and adds them to songDatabase
-    private void addSongs(SongDatabase sd, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("Songs");
+    private void addVideos(VideoDatabase vd, JSONObject jsonObject) {
+        JSONArray jsonArray = jsonObject.getJSONArray("Videos");
         for (Object json : jsonArray) {
-            JSONObject nextSong = (JSONObject) json;
-            addsong(sd, nextSong);
+            JSONObject nextVideo = (JSONObject) json;
+            addVideo(vd, nextVideo);
         }
     }
 
     // MODIFIES: sd
     // EFFECTS: parses song from JSON object and adds it to songDatabase
-    private void addsong(SongDatabase sd, JSONObject jsonObject) {
-        String songName = jsonObject.getString("Song Name");
-        String artistName = jsonObject.getString("Artist Name");
-        String instrument = jsonObject.getString("Instrument");
+    private void addVideo(VideoDatabase sd, JSONObject jsonObject) {
+        String title = jsonObject.getString("Title");
         String date = jsonObject.getString("Date");
         int views = jsonObject.getInt("Views");
         int likes = jsonObject.getInt("Likes");
         int dislikes = jsonObject.getInt("Dislikes");
         boolean isFavourite = jsonObject.getBoolean("IsFavourite");
 
-        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes, isFavourite);
-        sd.addSong(song);
+        Video video = new Video(title, date, views, likes, dislikes, isFavourite);
+        sd.addVideo(video);
     }
 }
 

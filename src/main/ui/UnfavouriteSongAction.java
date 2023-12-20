@@ -1,7 +1,6 @@
 package ui;
 
-import model.Song;
-import model.SongDatabase;
+import model.Video;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -10,11 +9,11 @@ import java.util.List;
 //represents the unfavourite button for the user to unfavourite a song
 public class UnfavouriteSongAction extends AbstractAction {
 
-    private SongDatabaseState state;
+    private VideoDatabaseState state;
 
     //EFFECTS: constructs the unfavourite song button
-    public UnfavouriteSongAction(SongDatabaseState state) {
-        super("Unfavourite A Song");
+    public UnfavouriteSongAction(VideoDatabaseState state) {
+        super("Unfavourite A Video");
         this.state = state;
     }
 
@@ -22,23 +21,23 @@ public class UnfavouriteSongAction extends AbstractAction {
     //EFFECTS: unfavaourites the song specified by the user given that the song was found in the song database
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = state.sd.getSongs();
-        if (songs == null) {
-            JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
+        List<Video> videos = state.sd.getVideos();
+        if (videos == null) {
+            JOptionPane.showMessageDialog(null, "There Are No Videos In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            String songName = JOptionPane.showInputDialog(null, "Please Enter Song Name",
-                    "Unfavourite A Song",
+            String keyword = JOptionPane.showInputDialog(null, "Please Enter Video Name",
+                    "Unfavourite A Video",
                     JOptionPane.PLAIN_MESSAGE);
-            Song favSong = state.sd.searchSong(songName);
+            Video favVideo = state.sd.searchVideo(keyword);
 
-            if (favSong == null) {
-                JOptionPane.showMessageDialog(null, "Cannot find " + songName
-                        + " in the song list", "Error", JOptionPane.ERROR_MESSAGE);
+            if (favVideo == null) {
+                JOptionPane.showMessageDialog(null, "Cannot find " + keyword
+                        + " in the video list", "Error", JOptionPane.ERROR_MESSAGE);
             } else {
-                state.sd.unFavouriteSong(favSong);
-                JOptionPane.showMessageDialog(null,   songName
-                        + " was successfully favourited", "Unfavourite A Song", JOptionPane.PLAIN_MESSAGE);
+                state.sd.unFavouriteVideo(favVideo);
+                JOptionPane.showMessageDialog(null,   keyword
+                        + " was successfully favourited", "Unfavourite A Video", JOptionPane.PLAIN_MESSAGE);
             }
         }
     }

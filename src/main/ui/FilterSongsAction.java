@@ -1,7 +1,6 @@
 package ui;
 
-import model.Song;
-import model.SongDatabase;
+import model.Video;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -12,11 +11,11 @@ public class FilterSongsAction extends AbstractAction {
     private JPanel tablePanel;
 
     private static final int NUM_COLS = 8;
-    private SongDatabaseState state;
+    private VideoDatabaseState state;
 
     //EFFECTS: constructs the filter songs button
-    public FilterSongsAction(SongDatabaseState state, JPanel tablePanel) {
-        super("Filter Songs");
+    public FilterSongsAction(VideoDatabaseState state, JPanel tablePanel) {
+        super("Filter Videos");
         this.tablePanel = tablePanel;
         this.state = state;
     }
@@ -26,32 +25,24 @@ public class FilterSongsAction extends AbstractAction {
     //same as the user specified assuming that that instrument is in the list
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = state.sd.getSongs();
-        if (songs == null) {
-            JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
+        List<Video> videos = state.sd.getVideos();
+        if (videos == null) {
+            JOptionPane.showMessageDialog(null, "There Are No Videos In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
         } else {
-            String instrument = JOptionPane.showInputDialog(null,
-                    "Please Enter The Instrument You Wish to Filter", "Filter Songs",
-                    JOptionPane.PLAIN_MESSAGE);
-            List<Song> filtered = state.sd.filterSong(instrument);
-            if (filtered == null) {
-                JOptionPane.showMessageDialog(null, "Cannot find " + instrument
-                        + " in the song list", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
-                String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
-                        "Favorite"};
-                ListSongsAction listAction = new ListSongsAction();
-                Object[][] data = listAction.getData(filtered);
+            List<Video> filtered = state.sd.filterVideos();
+            String[] colNames = {"Video Title", "Views", "Likes", "Dislikes", "Date",
+                    "Favorited"};
+            ListSongsAction listAction = new ListSongsAction();
+            Object[][] data = listAction.getData(filtered);
 
-                JTable songTable = new JTable(data, colNames);
-                songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
-                songTable.setRowHeight(50);
-                JScrollPane songPane = new JScrollPane(songTable);
-                updateFame(songPane);
-            }
-
+            JTable songTable = new JTable(data, colNames);
+            songTable.getColumnModel().getColumn(5).setCellRenderer(new FavouriteRenderer());
+            songTable.setRowHeight(50);
+            JScrollPane songPane = new JScrollPane(songTable);
+            updateFame(songPane);
         }
+
     }
 
     //MODIFIES: this

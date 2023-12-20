@@ -1,8 +1,8 @@
 package persistence;
 
+import model.Video;
+import model.VideoDatabase;
 import org.junit.jupiter.api.Test;
-import model.Song;
-import model.SongDatabase;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,7 +15,7 @@ public class JsonWriterTest extends JsonTest {
     @Test
     public void testWriterIllegalFileNameException() {
         try {
-            SongDatabase songDatabaseTest = new SongDatabase("Test");
+            VideoDatabase videoDatabaseTest = new VideoDatabase("Test");
             JsonWriter writer = new JsonWriter("./data/\0/songDatabase.json");
             writer.open();
             fail("IOException was expected");
@@ -28,15 +28,15 @@ public class JsonWriterTest extends JsonTest {
     @Test
     public void testWriterEmptySongDatabase() {
         try {
-            SongDatabase songDatabaseTest = new SongDatabase("Test");
+            VideoDatabase videoDatabaseTest = new VideoDatabase("Test");
             JsonWriter writer = new JsonWriter("./data/testWriterEmptySongDatabase.json");
             writer.open();
-            writer.write(songDatabaseTest);
+            writer.write(videoDatabaseTest);
             writer.close();
             JsonReader reader = new JsonReader("./data/testWriterEmptySongDatabase.json");
-            songDatabaseTest = reader.read();
-            assertEquals("Test",songDatabaseTest.getName());
-            assertNull(songDatabaseTest.getSongs());
+            videoDatabaseTest = reader.read();
+            assertEquals("Test", videoDatabaseTest.getName());
+            assertNull(videoDatabaseTest.getVideos());
         } catch (IOException e) {
             fail("IOException was not expected");
         }
@@ -45,27 +45,27 @@ public class JsonWriterTest extends JsonTest {
     //Test the JsonWriter in the case where the file has data written to it
     @Test
     public void testWriterGeneralUseSongDatabase() {
-        Song s1 = new Song("Glimpse of US", "Joji","Guitar","08/2022",
+        Video s1 = new Video("Glimpse of US", "08/2022",
                 394998,21248,25, false);
-        Song s2 = new Song("Love Nwantiti","CKay","Guitar","10/2021",
+        Video s2 = new Video("Love Nwantiti","10/2021",
                 1935946, 85182,392,true);
         try {
-            SongDatabase songDatabaseTest = new SongDatabase("Test");
-            songDatabaseTest.addSong(s1);
-            songDatabaseTest.addSong(s2);
+            VideoDatabase videoDatabaseTest = new VideoDatabase("Test");
+            videoDatabaseTest.addVideo(s1);
+            videoDatabaseTest.addVideo(s2);
 
             JsonWriter writer = new JsonWriter("./data/testWriterGeneralUseSongDatabase.json");
             writer.open();
-            writer.write(songDatabaseTest);
+            writer.write(videoDatabaseTest);
             writer.close();
 
             JsonReader reader = new JsonReader("./data/testWriterGeneralUseSongDatabase.json");
-            songDatabaseTest = reader.read();
-            List<Song> songs = songDatabaseTest.getSongs();
-            compareSong(s1.getSongName(),s1.getArtistName(),s1.getInstrument(),s1.getDate(),s1.getViews(),
-                    s1.getLikes(),s1.getDislikes(),s1.getFavourite(),songs.get(0));
-            compareSong(s2.getSongName(),s2.getArtistName(),s2.getInstrument(),s2.getDate(),s2.getViews(),
-                    s2.getLikes(),s2.getDislikes(),s2.getFavourite(),songs.get(1));
+            videoDatabaseTest = reader.read();
+            List<Video> videos = videoDatabaseTest.getVideos();
+            compareVideo(s1.getTitle(),s1.getDate(),s1.getViews(),
+                    s1.getLikes(),s1.getDislikes(),s1.getFavourite(), videos.get(0));
+            compareVideo(s2.getTitle(),s2.getDate(),s2.getViews(), s2.getLikes(),s2.getDislikes(),s2.getFavourite(),
+                    videos.get(1));
 
         } catch (IOException e) {
             fail("IOException was not expected");

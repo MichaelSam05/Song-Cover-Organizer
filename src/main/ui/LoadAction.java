@@ -1,6 +1,5 @@
 package ui;
 
-import model.SongDatabase;
 import persistence.JsonReader;
 
 import javax.swing.*;
@@ -12,11 +11,11 @@ public class LoadAction extends AbstractAction  {
 
     private JsonReader jsonReader;
     private String location;
-    private SongDatabaseState state;
+    private VideoDatabaseState state;
 
 
     //EFFECTS: construct the load button
-    public LoadAction(SongDatabaseState state, JsonReader jsonReader, String location) {
+    public LoadAction(VideoDatabaseState state, JsonReader jsonReader, String location) {
         super("Load Data");
         this.jsonReader = jsonReader;
         this.location = location;

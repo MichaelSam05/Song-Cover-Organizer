@@ -8,8 +8,8 @@ import java.util.Scanner;
 
 import model.Event;
 import model.EventLog;
-import model.Song;
-import model.SongDatabase;
+import model.Video;
+import model.VideoDatabase;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.exceptions.DateFormatException;
@@ -20,12 +20,13 @@ import static java.lang.Integer.*;
 // Represents a song organizer application where the user is prompted to select a choice from the main menu and
 // commands are executed based on the user's choice
 
+
 public class SongOrganizerApp {
 
     private static final String JSON_STORE = "./data/songOrganizer.json";
     private Scanner input;
     private static final String QUIT = "quit";
-    private SongDatabase songDatabase;
+    private VideoDatabase videoDatabase;
 
     private JsonWriter jsonWriter;
 
@@ -35,7 +36,7 @@ public class SongOrganizerApp {
 
     //EFFECTS: constructs a song database for the user and runs the app
     public SongOrganizerApp() throws FileNotFoundException {
-        songDatabase = new SongDatabase("My Song Database");
+        videoDatabase = new VideoDatabase("My Song Database");
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         jsonWriter = new JsonWriter(JSON_STORE);
@@ -69,7 +70,7 @@ public class SongOrganizerApp {
         }
     }
 
-    //EFFECTS: gives the user the choice to safely save the changes they make to the songDatabase in case they
+    //EFFECTS: gives the user the choice to safely save the changes they make to the videoDatabase in case they
     //accidentally forgot to save and terminate the application
     private void saveQuit() {
         String choice;
@@ -161,26 +162,26 @@ public class SongOrganizerApp {
     //MODIFIES: this
     //EFFECTS: sorts the song databased in descending order
     private void doSortSongs() {
-        songDatabase.sortByViews();
+        videoDatabase.sortByViews();
         System.out.println("Sorting complete please select 'list' option to view...");
     }
 
     //MODIFIES: this
-    //EFFECTS: loads the user's songDatabase from a file
+    //EFFECTS: loads the user's videoDatabase from a file
     private void doLoadData() {
         try {
-            songDatabase = jsonReader.read();
+            videoDatabase = jsonReader.read();
             System.out.println("Loaded data form" + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to load data from " + JSON_STORE);
         }
     }
 
-    //EFFECTS: save the user's songDatabase to a file
+    //EFFECTS: save the user's videoDatabase to a file
     private void doSaveData() {
         try {
             jsonWriter.open();
-            jsonWriter.write(songDatabase);
+            jsonWriter.write(videoDatabase);
             jsonWriter.close();
             System.out.println("Success, saved to " + JSON_STORE);
         } catch (FileNotFoundException e) {
@@ -191,20 +192,15 @@ public class SongOrganizerApp {
     //MODIFIES: this
     //EFFECTS: add new song to the song database
     private void doAddSong() {
-        String songName;
-        String artistName;
-        String instrument;
+        String title;
         String date;
         int views;
         int likes;
         int dislikes;
 
-        System.out.println("Enter Song Name");
-        songName = input.nextLine().toLowerCase();
-        System.out.println("Enter Artist Name");
-        artistName = input.nextLine().toLowerCase();
-        System.out.println("Enter Featured Instrument");
-        instrument = input.nextLine().toLowerCase();
+
+        System.out.println("Enter Video Title");
+        title = input.nextLine().toLowerCase();
         date = getFormattedDate();
         System.out.println("Enter Number of Views");
         views = parseInt(input.nextLine());
@@ -212,8 +208,8 @@ public class SongOrganizerApp {
         likes = parseInt(input.nextLine());
         System.out.println("Enter Number of Dislikes");
         dislikes = parseInt(input.nextLine());
-        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes, false);
-        songDatabase.addSong(song);
+        Video video = new Video(title,date, views, likes, dislikes, false);
+        videoDatabase.addVideo(video);
     }
 
     //EFFECTS: prompts the user to enter a valid date and returns the formatted date
@@ -251,20 +247,20 @@ public class SongOrganizerApp {
     private void doDeleteSong() {
         String songName;
         String choice;
-        List<Song> songs = songDatabase.getSongs();
-        if (songs == null) {
+        List<Video> videos = videoDatabase.getVideos();
+        if (videos == null) {
             System.out.println("No songs in the organizer");
         } else {
             System.out.println("Enter song name you want to delete");
             songName = input.nextLine().toLowerCase();
-            Song deleteSong = songDatabase.searchSong(songName);
-            if (deleteSong == null) {
+            Video deleteVideo = videoDatabase.searchVideo(songName);
+            if (deleteVideo == null) {
                 System.out.println("Song does not exist");
             } else {
                 System.out.println("Are You Sure?");
                 choice = yesOrNoMenu();
                 if (choice.equals("y")) {
-                    songDatabase.deleteSong(deleteSong);
+                    videoDatabase.deleteVideo(deleteVideo);
                     System.out.println("Successful deletion");
                 } else {
                     System.out.println("Returning to main menu");
@@ -279,20 +275,20 @@ public class SongOrganizerApp {
     //else informs the user that the song was not found
     private void doSearchSong() {
         String songName;
-        List<Song> songs = songDatabase.getSongs();
-        if (songs == null) {
+        List<Video> videos = videoDatabase.getVideos();
+        if (videos == null) {
             System.out.println("No songs in the organizer");
         } else {
             System.out.println("Enter song name");
             songName = input.nextLine().toLowerCase();
 
-            Song mySong = songDatabase.searchSong(songName);
+            Video myVideo = videoDatabase.searchVideo(songName);
 
-            if (mySong == null) {
+            if (myVideo == null) {
                 System.out.println("Song not found");
             } else {
-                List<Song> tempList = new ArrayList<>();
-                tempList.add(mySong);
+                List<Video> tempList = new ArrayList<>();
+                tempList.add(myVideo);
                 print(tempList);
             }
         }
@@ -301,9 +297,9 @@ public class SongOrganizerApp {
     //EFFECTS: Displays the average views, likes and dislikes for the songs within the list of songs
     private void doGenerateAvg() {
         System.out.println("Calculating Averages");
-        int avgViews = songDatabase.calcAvgViews();
-        int avgLikes = songDatabase.calcAvgLikes();
-        int avgDislikes = songDatabase.calcAvgDislikes();
+        int avgViews = videoDatabase.calcAvgViews();
+        int avgLikes = videoDatabase.calcAvgLikes();
+        int avgDislikes = videoDatabase.calcAvgDislikes();
 
         System.out.println("Average Views:" + avgViews);
         System.out.println("Average Likes:" + avgLikes);
@@ -312,30 +308,23 @@ public class SongOrganizerApp {
 
     //EFFECT: Displays a list of all the songs in the list of songs
     public void doGenerateList() {
-        List<Song> songs = songDatabase.getSongs();
-        if (songs == null) {
+        List<Video> videos = videoDatabase.getVideos();
+        if (videos == null) {
             System.out.println("There are no songs in the organizer");
         } else {
-            print(songs);
+            print(videos);
         }
     }
 
     //EFFECTS: displays a list of songs that satisfies the instrument the user specifies
     private void doFilterSongs() {
         String instrument;
-        List<Song> songs = songDatabase.getSongs();
-        if (songs == null) {
+        List<Video> videos = videoDatabase.getVideos();
+        if (videos == null) {
             System.out.println("There are no songs in the organizer");
         } else {
-            System.out.println("Enter instrument");
-            instrument = input.nextLine().toLowerCase();
-
-            List<Song> filteredSongs = songDatabase.filterSong(instrument);
-            if (filteredSongs.isEmpty()) {
-                System.out.println("Could not find " + instrument + " in the organizer");
-            } else {
-                print(filteredSongs);
-            }
+            List<Video> filteredVideos = videoDatabase.filterVideos();
+            print(filteredVideos);
         }
     }
 
@@ -347,12 +336,12 @@ public class SongOrganizerApp {
         System.out.println("Enter Song Name You Wish To Favorite");
         songName = input.nextLine().toLowerCase();
 
-        Song mySong = songDatabase.searchSong(songName);
+        Video myVideo = videoDatabase.searchVideo(songName);
 
-        if (mySong == null) {
+        if (myVideo == null) {
             System.out.println("Song not found");
         } else {
-            songDatabase.favouriteSong(mySong);
+            videoDatabase.favouriteVideo(myVideo);
             System.out.println("Success");
         }
     }
@@ -364,22 +353,21 @@ public class SongOrganizerApp {
         doGenerateList();
         System.out.println("Enter Song Name You Wish To Unfavorite");
         songName = input.nextLine().toLowerCase();
-        Song mySong = songDatabase.searchSong(songName);
+        Video myVideo = videoDatabase.searchVideo(songName);
 
-        if (mySong == null) {
+        if (myVideo == null) {
             System.out.println("Song not found");
         } else {
-            songDatabase.unFavouriteSong(mySong);
+            videoDatabase.unFavouriteVideo(myVideo);
             System.out.println("Success");
         }
     }
 
     //EFFECTS: prints a list of songs for the user
-    private void print(List<Song> songs) {
+    private void print(List<Video> videos) {
         System.out.println("Song Name | Artist Name | Instrument | Date | Views | Likes | Dislikes | isFavourite?");
-        for (Song next : songs) {
-            System.out.println(next.getSongName() + " | " + next.getArtistName() + " | "
-                    + next.getInstrument() + " | " + next.getDate() + " | " + next.getViews() + " | "
+        for (Video next : videos) {
+            System.out.println(next.getTitle() + " | " + next.getDate() + " | " + next.getViews() + " | "
                     + next.getLikes() + " | " + next.getDislikes() + " | " + next.getFavourite());
         }
     }

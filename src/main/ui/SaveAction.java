@@ -10,11 +10,11 @@ import java.io.FileNotFoundException;
 public class SaveAction extends AbstractAction {
     private JsonWriter jsonWriter;
     private String location;
-    private SongDatabaseState state;
+    private VideoDatabaseState state;
 
 
     //EFFECTS: constructs the save button
-    public SaveAction(SongDatabaseState state, JsonWriter jsonWriter, String location) {
+    public SaveAction(VideoDatabaseState state, JsonWriter jsonWriter, String location) {
         super("Save Data");
         this.jsonWriter = jsonWriter;
         this.location = location;

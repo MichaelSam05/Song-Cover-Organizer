@@ -8,15 +8,13 @@ import persistence.JsonWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
-import java.awt.event.WindowFocusListener;
 import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
 import java.io.FileNotFoundException;
 
 //Represents the GUI for this application that the user interacts with
 public class SongOrganizerAppUI extends JFrame implements WindowListener {
 
-    private SongDatabaseState state;
+    private VideoDatabaseState state;
 
     private static final  int FRAME_WIDTH = 1000;
 
@@ -27,14 +25,14 @@ public class SongOrganizerAppUI extends JFrame implements WindowListener {
     private JsonWriter jsonWriter;
 
     private JsonReader jsonReader;
-    private static final String JSON_STORE = "./data/songOrganizer.json";
-
+    //private static final String JSON_STORE = "./data/songOrganizer.json";
+    private static final String JSON_STORE = "./data/testReaderEmptySongDatabase.json";
 
     //EFFECTS: constructs the application GUI to be displayed to the user
     public SongOrganizerAppUI() throws FileNotFoundException {
         jsonReader = new JsonReader(JSON_STORE);
         jsonWriter = new JsonWriter(JSON_STORE);
-        state = new SongDatabaseState();
+        state = new VideoDatabaseState();
         setTitle(state.NAME);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -67,9 +65,9 @@ public class SongOrganizerAppUI extends JFrame implements WindowListener {
     //MODIFIES: this, menuPanel, displayPanel
     //EFFECTS: creates the button options available to the user
     private void createButtons(JPanel menuPanel, JPanel displayPanel) {
-        JButton addButton = new JButton(new AddSongAction(state));
+        JButton addButton = new JButton(new AddVideoAction(state));
         addButton.setBounds(10,40,180,40);
-        JButton deleteButton = new JButton(new DeleteSongAction(state));
+        JButton deleteButton = new JButton(new DeleteVideoAction(state));
         deleteButton.setBounds(10,90,180,40);
         JButton listButton = new JButton(new ListSongsAction(state,displayPanel));
         listButton.setBounds(10,140,180,40);

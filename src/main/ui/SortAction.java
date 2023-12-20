@@ -1,6 +1,6 @@
 package ui;
 
-import model.Song;
+import model.Video;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -10,11 +10,11 @@ import java.util.List;
 
 public class SortAction extends AbstractAction {
 
-    private SongDatabaseState state;
+    private VideoDatabaseState state;
     private JPanel tablePanel;
 
 
-    public SortAction(SongDatabaseState state, JPanel panel) {
+    public SortAction(VideoDatabaseState state, JPanel panel) {
         super("Sort Songs");
         this.state = state;
         this.tablePanel = panel;
@@ -22,9 +22,9 @@ public class SortAction extends AbstractAction {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = state.sd.getSongs();
-        List<Song> sorted = new ArrayList<>();
-        if (songs == null) {
+        List<Video> videos = state.sd.getVideos();
+        List<Video> sorted = new ArrayList<>();
+        if (videos == null) {
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
             tablePanel.removeAll();
@@ -46,14 +46,13 @@ public class SortAction extends AbstractAction {
                 sorted = state.sd.sortByDislikes();
             }
 
-            String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
-                    "Favorite"};
+            String[] colNames = {"Video Title", "Views", "Likes", "Dislikes", "Date", "Favorite"};
             ListSongsAction listAction = new ListSongsAction();
             Object[][] data = listAction.getData(sorted);
             tablePanel.removeAll();
             DefaultTableModel model = new DefaultTableModel(data, colNames);
             JTable songTable = new JTable(model);
-            songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
+            songTable.getColumnModel().getColumn(5).setCellRenderer(new FavouriteRenderer());
             songTable.setRowHeight(25);
             JScrollPane songPane = new JScrollPane(songTable);
             tablePanel.add(songPane);

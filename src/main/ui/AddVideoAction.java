@@ -3,7 +3,7 @@ package ui;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
-import model.Song;
+import model.Video;
 
 import static java.lang.Integer.parseInt;
 
@@ -11,13 +11,13 @@ import ui.exceptions.DateFormatException;
 import ui.exceptions.NegativeYearException;
 
 //Represents the add song button as well as the action that occurs when clicked
-public class AddSongAction extends AbstractAction {
-    private SongDatabaseState state;
+public class AddVideoAction extends AbstractAction {
+    private VideoDatabaseState state;
 
 
     //EFFECTS: constructs the add song button
-    public AddSongAction(SongDatabaseState state) {
-        super("Add New Song");
+    public AddVideoAction(VideoDatabaseState state) {
+        super("Add New Video");
         this.state = state;
     }
 
@@ -25,17 +25,10 @@ public class AddSongAction extends AbstractAction {
     //EFFECTS: prompts the user to enter the fields related to a song
     @Override
     public void actionPerformed(ActionEvent e) {
-        String songName = JOptionPane.showInputDialog(null, "Please Enter Song Name",
-                "Add New Song",
+        String title = JOptionPane.showInputDialog(null, "Please Enter Video Title",
+                "Add New Video",
                 JOptionPane.PLAIN_MESSAGE);
 
-        String artistName = JOptionPane.showInputDialog(null, "Please Enter Artist Name",
-                "Add New Song",
-                JOptionPane.PLAIN_MESSAGE);
-
-        String instrument = JOptionPane.showInputDialog(null, "Please Enter Featured Instrument",
-                "Add New Song",
-                JOptionPane.PLAIN_MESSAGE);
 
         String date = getFormatedDate();
 
@@ -43,8 +36,8 @@ public class AddSongAction extends AbstractAction {
         int likes = getValidLikes();
         int dislikes = getValidDislikes();
 
-        Song song = new Song(songName, artistName, instrument, date, views, likes, dislikes, false);
-        state.sd.addSong(song);
+        Video video = new Video(title, date, views, likes, dislikes, false);
+        state.sd.addVideo(video);
     }
 
     //EFFECTS: returns the number of views for a particular video from the user
@@ -54,7 +47,7 @@ public class AddSongAction extends AbstractAction {
         do {
             try {
                 views = parseInt(JOptionPane.showInputDialog(null, "Please Enter View Count",
-                        "Add New Song", JOptionPane.PLAIN_MESSAGE));
+                        "Add New Video", JOptionPane.PLAIN_MESSAGE));
                 valid = true;
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Input Must Be An Integer", "Error",
@@ -72,7 +65,7 @@ public class AddSongAction extends AbstractAction {
         do {
             try {
                 likes = parseInt(JOptionPane.showInputDialog(null, "Please Enter Like Count",
-                        "Add New Song", JOptionPane.PLAIN_MESSAGE));
+                        "Add New Video", JOptionPane.PLAIN_MESSAGE));
                 valid = true;
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Input Must Be An Integer", "Error",
@@ -90,7 +83,7 @@ public class AddSongAction extends AbstractAction {
         do {
             try {
                 dislikes = parseInt(JOptionPane.showInputDialog(null,
-                        "Please Enter Dislike Count", "Add New Song", JOptionPane.PLAIN_MESSAGE));
+                        "Please Enter Dislike Count", "Add New Video", JOptionPane.PLAIN_MESSAGE));
                 valid = true;
             } catch (NumberFormatException nfe) {
                 JOptionPane.showMessageDialog(null, "Input Must Be An Integer", "Error",
@@ -108,12 +101,12 @@ public class AddSongAction extends AbstractAction {
         String[] months = {"01","02","03","04","05","06","07","08","09","10","11","12"};
 
         Object m = JOptionPane.showInputDialog(null,
-                "Select Upload Month", "Add New Song", JOptionPane.PLAIN_MESSAGE,null,months,
+                "Select Upload Month", "Add New Video", JOptionPane.PLAIN_MESSAGE,null,months,
                 months[0]);
         do {
             try {
                 year = parseInt(JOptionPane.showInputDialog(null,
-                        "Please Enter Upload Year (yyyy)", "Add New Song", JOptionPane.PLAIN_MESSAGE));
+                        "Please Enter Upload Year (yyyy)", "Add New Video", JOptionPane.PLAIN_MESSAGE));
 
                 valid = isValid(year);
             } catch (NumberFormatException nfe) {

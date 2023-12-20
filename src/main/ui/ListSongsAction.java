@@ -1,6 +1,6 @@
 package ui;
 
-import model.Song;
+import model.Video;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -12,15 +12,15 @@ import java.util.List;
 public class ListSongsAction extends AbstractAction {
 
     private JPanel tablePanel;
-    private static final int NUM_COLS = 8;
-    private SongDatabaseState state;
+    private static final int NUM_COLS = 6;
+    private VideoDatabaseState state;
 
     public ListSongsAction() {
 
     }
 
     //EFFECTS: constructs the list songs button
-    public ListSongsAction(SongDatabaseState state, JPanel tablePanel) {
+    public ListSongsAction(VideoDatabaseState state, JPanel tablePanel) {
         super("List All Songs");
         this.tablePanel = tablePanel;
         this.state = state;
@@ -32,21 +32,21 @@ public class ListSongsAction extends AbstractAction {
     //user
     @Override
     public void actionPerformed(ActionEvent e) {
-        List<Song> songs = state.sd.getSongs();
-        if (songs == null) {
+        List<Video> videos = state.sd.getVideos();
+        if (videos == null) {
             JOptionPane.showMessageDialog(null, "There Are No Songs In The List", "Error",
                     JOptionPane.ERROR_MESSAGE);
             tablePanel.removeAll();
             tablePanel.revalidate();
             tablePanel.repaint();
         } else {
-            String[] colNames = {"Song Name", "Artist Name", "Instrument", "Views", "Likes", "Dislikes", "Date",
+            String[] colNames = {"Video Title", "Views", "Likes", "Dislikes", "Date",
                     "Favorite"};
-            Object[][] data = getData(songs);
+            Object[][] data = getData(videos);
             tablePanel.removeAll();
             DefaultTableModel model = new DefaultTableModel(data, colNames);
             JTable songTable = new JTable(model);
-            songTable.getColumnModel().getColumn(7).setCellRenderer(new FavouriteRenderer());
+            songTable.getColumnModel().getColumn(5).setCellRenderer(new FavouriteRenderer());
             songTable.setRowHeight(25);
             JScrollPane songPane = new JScrollPane(songTable);
             tablePanel.add(songPane);
@@ -58,18 +58,16 @@ public class ListSongsAction extends AbstractAction {
 
 
     //EFFECTS: gets all the songs stored in the database and puts them into a 2D Object Array
-    public Object[][] getData(List<Song> songs) {
-        Object[][] data = new Object[songs.size()][NUM_COLS];
+    public Object[][] getData(List<Video> videos) {
+        Object[][] data = new Object[videos.size()][NUM_COLS];
         int i;
-        for (i = 0; i < songs.size(); i++) {
-            data[i][0] = songs.get(i).getSongName();
-            data[i][1] = songs.get(i).getArtistName();
-            data[i][2] = songs.get(i).getInstrument();
-            data[i][3] = songs.get(i).getViews();
-            data[i][4] = songs.get(i).getLikes();
-            data[i][5] = songs.get(i).getDislikes();
-            data[i][6] = songs.get(i).getDate();
-            data[i][7] = songs.get(i).getFavourite();
+        for (i = 0; i < videos.size(); i++) {
+            data[i][0] = videos.get(i).getTitle();
+            data[i][1] = videos.get(i).getViews();
+            data[i][2] = videos.get(i).getLikes();
+            data[i][3] = videos.get(i).getDislikes();
+            data[i][4] = videos.get(i).getDate();
+            data[i][5] = videos.get(i).getFavourite();
         }
         return data;
     }

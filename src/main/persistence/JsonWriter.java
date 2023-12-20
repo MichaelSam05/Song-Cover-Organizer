@@ -1,6 +1,6 @@
 package persistence;
 
-import model.SongDatabase;
+import model.VideoDatabase;
 import org.json.JSONObject;
 
 
@@ -27,8 +27,8 @@ public class JsonWriter {
 
     // MODIFIES: this
     // EFFECTS: writes JSON representation of songDatabase to file
-    public void write(SongDatabase sd) {
-        JSONObject json = sd.toJson();
+    public void write(VideoDatabase vd) {
+        JSONObject json = vd.toJson();
         saveToFile(json.toString(TAB));
     }
 

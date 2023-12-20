@@ -1,7 +1,7 @@
 package persistence;
+import model.Video;
+import model.VideoDatabase;
 import org.junit.jupiter.api.Test;
-import model.Song;
-import model.SongDatabase;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +14,7 @@ public class JsonReaderTest extends JsonTest {
     void testReaderFileNotFound() {
         JsonReader reader = new JsonReader("./data/fileNotFound.json");
         try {
-            SongDatabase songDatabaseTest = reader.read();
+            VideoDatabase videoDatabaseTest = reader.read();
             fail("IOException expected");
         } catch (IOException e) {
             // expected
@@ -26,9 +26,9 @@ public class JsonReaderTest extends JsonTest {
     void testReaderEmptySongDatabase() {
         JsonReader reader = new JsonReader("./data/testReaderEmptySongDatabase.json");
         try {
-            SongDatabase songDatabaseTest = reader.read();
-            assertEquals("My Song Database", songDatabaseTest.getName());
-            assertNull(songDatabaseTest.getSongs());
+            VideoDatabase videoDatabaseTest = reader.read();
+            assertEquals("My Video Database", videoDatabaseTest.getName());
+            assertNull(videoDatabaseTest.getVideos());
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
@@ -39,14 +39,14 @@ public class JsonReaderTest extends JsonTest {
     void testReaderGeneralUseSongDatabase() {
         JsonReader reader = new JsonReader("./data/testReaderGeneralUseSongDatabase.json");
         try {
-            SongDatabase songDatabaseTest = reader.read();
-            assertEquals("My Song Database", songDatabaseTest.getName());
-            List<Song> songs = songDatabaseTest.getSongs();
-            assertEquals(2, songs.size());
-            compareSong("song1", "artist1","guitar", "09/2000",
-                    100,100,100,false, songs.get(0));
-            compareSong("song2","artist2","piano","10/2022",
-                    200,200,200,true, songs.get(1));
+            VideoDatabase videoDatabaseTest = reader.read();
+            assertEquals("My VideoDatabase", videoDatabaseTest.getName());
+            List<Video> videos = videoDatabaseTest.getVideos();
+            assertEquals(2, videos.size());
+            compareVideo("name1",  "01/2000",
+                    2,2,2,false, videos.get(0));
+            compareVideo("name2","01/2000",
+                    1,1,1,true, videos.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }

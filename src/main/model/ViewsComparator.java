@@ -3,7 +3,7 @@ package model;
 import java.util.Comparator;
 
 //Represents a view comparator for comparing views
-public class ViewsComparator implements Comparator<Song> {
+public class ViewsComparator implements Comparator<Video> {
 
     //EFFECTS: creates a new view comparator
     public ViewsComparator() {
@@ -15,10 +15,10 @@ public class ViewsComparator implements Comparator<Song> {
     //- return -1; if song1 has more views than song2
     //-return 0; if song1 and song2 have the same number of views
     @Override
-    public int compare(Song song1, Song song2) {
-        if (song1.getViews() < song2.getViews()) {
+    public int compare(Video video1, Video video2) {
+        if (video1.getViews() < video2.getViews()) {
             return 1;
-        } else if (song1.getViews() > song2.getViews()) {
+        } else if (video1.getViews() > video2.getViews()) {
             return -1;
         } else {
             return 0;
